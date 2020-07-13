@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Vews.Properties
+namespace DTO.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace Vews.Properties
       {
         if ((resourceMan == null))
         {
-          global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Vews.Properties.Resources", typeof(Resources).Assembly);
+          global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DTO.Properties.Resources", typeof(Resources).Assembly);
           resourceMan = temp;
         }
         return resourceMan;
