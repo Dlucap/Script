@@ -8,34 +8,33 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
- public class SaveScript
+  public class SaveScript
   {
-
-
 
     public StringBuilder Cabecalho(string nomeProjeto)
     {
       return new StringBuilder();
     }
 
-    public void SalvarScriptSQL(string fileName, StringBuilder buider, List<GCamposGDic> modeloCamposGDic)
+    public void SalvarScriptSQL(string fileName,List<GDefCompl> gDefCompls ,List<GCamposGDic> gCamposGDic)
     {
       using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
       {
-        SqlGCamposGDic sqlGCamposGDic = new SqlGCamposGDic();
-        foreach (var item in modeloCamposGDic)
+        SqlGCamposGDic sqlGDefCompl = new SqlGCamposGDic();
+        foreach (var item in gDefCompls)
         {
-          if (item.IsSql)
-          {
-            StringBuilder builder = new StringBuilder();
-            outfile.Write(sqlGCamposGDic.GeraInsertSqlGCamposGDic(item, builder));
-          }
+          outfile.Write(sqlGDefCompl.GeraInsertSqlGDef(item));
+        }
 
+        SqlGCamposGDic sqlGCamposGDic = new SqlGCamposGDic();
+        foreach (var item in gCamposGDic)
+        {          
+          outfile.Write(sqlGCamposGDic.GeraInsertSqlGCamposGDic(item));
         }
       }
     }
 
-    public void SalvarScriptOracle(string fileName, StringBuilder buider, List<GCamposGDic> modeloCamposGDic)
+    public void SalvarScriptOracle(string fileName, List<GCamposGDic> modeloCamposGDic)
     {
       using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
       {
@@ -43,11 +42,8 @@ namespace BLL
 
         foreach (var item in modeloCamposGDic)
         {
-          if (item.IsOracle)
-          {
-            StringBuilder builder = new StringBuilder();
-            outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracle(item, builder));
-          }
+          StringBuilder builder = new StringBuilder();
+          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracle(item, builder));
         }
       }
     }

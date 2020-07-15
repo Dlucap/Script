@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CollectionsGCamposGDic.cs" />
     <Compile Include="CollectionsGDefCompl.cs" />
+    <Compile Include="BancoDados.cs" />
     <Compile Include="GCamposGDic.cs" />
     <Compile Include="GDefCompl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

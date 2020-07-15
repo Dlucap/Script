@@ -13,8 +13,7 @@ namespace DTO
     public string Coluna { get; set; }
     public string Descricao { get; set; }
     public bool Relatorio { get; set; }
-    public string Apicacoes { get; set; }
-    public bool IsSql { get; set; }
-    public bool IsOracle { get; set; }
+    public string Aplicacoes { get; set; }
+  
   }
 }

@@ -30,7 +30,42 @@
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Script));
       this.txtNoeProjeto = new System.Windows.Forms.TabControl();
-      this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.tabGDefCompl = new System.Windows.Forms.TabPage();
+      this.txtValorDefault = new System.Windows.Forms.Panel();
+      this.txtGDefTamanhoColuna = new System.Windows.Forms.TextBox();
+      this.lblTamanhoColuna = new System.Windows.Forms.Label();
+      this.btnGDefExcluirDadosGrid = new System.Windows.Forms.Button();
+      this.btGDefIncluir = new System.Windows.Forms.Button();
+      this.btGDefExcluir = new System.Windows.Forms.Button();
+      this.txtGdefOrdem = new System.Windows.Forms.TextBox();
+      this.lblOrdem = new System.Windows.Forms.Label();
+      this.btGDefLimpar = new System.Windows.Forms.Button();
+      this.lblCodColTabDinamica = new System.Windows.Forms.Label();
+      this.lblCodTabDinamica = new System.Windows.Forms.Label();
+      this.lblGdfDescricao = new System.Windows.Forms.Label();
+      this.lblNomeColuna = new System.Windows.Forms.Label();
+      this.lblGDefCodApliFormula = new System.Windows.Forms.Label();
+      this.lblCodigoFormula = new System.Windows.Forms.Label();
+      this.lblApliccaoTabDinamica = new System.Windows.Forms.Label();
+      this.lblCodColFormula = new System.Windows.Forms.Label();
+      this.lblTabDados = new System.Windows.Forms.Label();
+      this.lblAplicacao = new System.Windows.Forms.Label();
+      this.lblValorDefault = new System.Windows.Forms.Label();
+      this.txtGDefCodigoColigadaTabelaDinamica = new System.Windows.Forms.TextBox();
+      this.txtGDefAplicacaoTabelaDinamica = new System.Windows.Forms.TextBox();
+      this.txtGDefCodigoTabelaDinamica = new System.Windows.Forms.TextBox();
+      this.txtGDefDescricao = new System.Windows.Forms.TextBox();
+      this.txtGdefCodigoColigadaFormula = new System.Windows.Forms.TextBox();
+      this.txtGDefTabelaDados = new System.Windows.Forms.TextBox();
+      this.chkBGdefQuebraLinha = new System.Windows.Forms.CheckBox();
+      this.chkBoxGDefPesqTabDinamCod = new System.Windows.Forms.CheckBox();
+      this.txtGDefNomeColuna = new System.Windows.Forms.TextBox();
+      this.txtGDefCodApliFormula = new System.Windows.Forms.TextBox();
+      this.txtGDefCodigoFormula = new System.Windows.Forms.TextBox();
+      this.txtGdefAplicacao = new System.Windows.Forms.TextBox();
+      this.txtGdefValorDefault = new System.Windows.Forms.TextBox();
+      this.dgvGDefCompl = new System.Windows.Forms.DataGridView();
+      this.tabGCamposGDic = new System.Windows.Forms.TabPage();
       this.dgvGdicGcampos = new System.Windows.Forms.DataGridView();
       this.panel1 = new System.Windows.Forms.Panel();
       this.gbTabela = new System.Windows.Forms.GroupBox();
@@ -39,9 +74,6 @@
       this.btnGcamposGDicExcluir = new System.Windows.Forms.Button();
       this.btnExcluirDadosGrid = new System.Windows.Forms.Button();
       this.btnInserirDadosGCamposGdic = new System.Windows.Forms.Button();
-      this.gbBancoDados = new System.Windows.Forms.GroupBox();
-      this.chbSql = new System.Windows.Forms.CheckBox();
-      this.chbOracle = new System.Windows.Forms.CheckBox();
       this.txtAplicacao = new System.Windows.Forms.TextBox();
       this.lblAplicacoes = new System.Windows.Forms.Label();
       this.txtTabela = new System.Windows.Forms.TextBox();
@@ -52,80 +84,374 @@
       this.lblDescricao = new System.Windows.Forms.Label();
       this.txtColuna = new System.Windows.Forms.TextBox();
       this.txtDescricao = new System.Windows.Forms.TextBox();
-      this.tabPage2 = new System.Windows.Forms.TabPage();
-      this.txtValorDefault = new System.Windows.Forms.Panel();
-      this.txtTipoTexto = new System.Windows.Forms.TextBox();
-      this.lblTipoTexto = new System.Windows.Forms.Label();
-      this.btnGDefExcluirDadosGrid = new System.Windows.Forms.Button();
-      this.btGDefIncluir = new System.Windows.Forms.Button();
-      this.btGDefExcluir = new System.Windows.Forms.Button();
-      this.textBox9 = new System.Windows.Forms.TextBox();
-      this.lblOrdem = new System.Windows.Forms.Label();
-      this.btGDefLimpar = new System.Windows.Forms.Button();
-      this.lblCodColTabDinamica = new System.Windows.Forms.Label();
-      this.lblCodTabDinamica = new System.Windows.Forms.Label();
-      this.lblGdfDescricao = new System.Windows.Forms.Label();
-      this.lblNomeColuna = new System.Windows.Forms.Label();
-      this.lblDodTabDinamica = new System.Windows.Forms.Label();
-      this.lblCodigoFormula = new System.Windows.Forms.Label();
-      this.lblApliccaoTabDinamica = new System.Windows.Forms.Label();
-      this.lblCodColFormula = new System.Windows.Forms.Label();
-      this.lblTabDados = new System.Windows.Forms.Label();
-      this.lblAplicacao = new System.Windows.Forms.Label();
-      this.lblColigada = new System.Windows.Forms.Label();
-      this.lblValorDefault = new System.Windows.Forms.Label();
-      this.txtCodColTabDinamica = new System.Windows.Forms.TextBox();
-      this.textBox13 = new System.Windows.Forms.TextBox();
-      this.textBox4 = new System.Windows.Forms.TextBox();
-      this.textBox5 = new System.Windows.Forms.TextBox();
-      this.textBox10 = new System.Windows.Forms.TextBox();
-      this.textBox11 = new System.Windows.Forms.TextBox();
-      this.chkBoxQuebraLinha = new System.Windows.Forms.CheckBox();
-      this.chkBoxPesqTabDinamCod = new System.Windows.Forms.CheckBox();
-      this.txtNomeColuna = new System.Windows.Forms.TextBox();
-      this.textBox7 = new System.Windows.Forms.TextBox();
-      this.textBox8 = new System.Windows.Forms.TextBox();
-      this.textBox3 = new System.Windows.Forms.TextBox();
-      this.txtColigada = new System.Windows.Forms.TextBox();
-      this.textBox1 = new System.Windows.Forms.TextBox();
-      this.dgvGDefCompl = new System.Windows.Forms.DataGridView();
+      this.gbBancoDados = new System.Windows.Forms.GroupBox();
+      this.chbSql = new System.Windows.Forms.CheckBox();
+      this.chbOracle = new System.Windows.Forms.CheckBox();
       this.btnSair = new System.Windows.Forms.Button();
       this.btnSalvarScript = new System.Windows.Forms.Button();
-      this.textBox2 = new System.Windows.Forms.TextBox();
+      this.txtNomeProjeto = new System.Windows.Forms.TextBox();
       this.lblProjeto = new System.Windows.Forms.Label();
       this.txtNoeProjeto.SuspendLayout();
-      this.tabPage1.SuspendLayout();
+      this.tabGDefCompl.SuspendLayout();
+      this.txtValorDefault.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.dgvGDefCompl)).BeginInit();
+      this.tabGCamposGDic.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvGdicGcampos)).BeginInit();
       this.panel1.SuspendLayout();
       this.gbTabela.SuspendLayout();
       this.gbBancoDados.SuspendLayout();
-      this.tabPage2.SuspendLayout();
-      this.txtValorDefault.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.dgvGDefCompl)).BeginInit();
       this.SuspendLayout();
       // 
       // txtNoeProjeto
       // 
-      this.txtNoeProjeto.Controls.Add(this.tabPage1);
-      this.txtNoeProjeto.Controls.Add(this.tabPage2);
-      this.txtNoeProjeto.Location = new System.Drawing.Point(1, 41);
+      this.txtNoeProjeto.Controls.Add(this.tabGDefCompl);
+      this.txtNoeProjeto.Controls.Add(this.tabGCamposGDic);
+      this.txtNoeProjeto.Location = new System.Drawing.Point(1, 53);
       this.txtNoeProjeto.Name = "txtNoeProjeto";
       this.txtNoeProjeto.SelectedIndex = 0;
       this.txtNoeProjeto.Size = new System.Drawing.Size(1045, 367);
       this.txtNoeProjeto.TabIndex = 14;
       // 
-      // tabPage1
+      // tabGDefCompl
       // 
-      this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.tabPage1.Controls.Add(this.dgvGdicGcampos);
-      this.tabPage1.Controls.Add(this.panel1);
-      this.tabPage1.Location = new System.Drawing.Point(4, 22);
-      this.tabPage1.Name = "tabPage1";
-      this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(1037, 341);
-      this.tabPage1.TabIndex = 0;
-      this.tabPage1.Text = "GCAMPOS/GDIC";
-      this.tabPage1.UseVisualStyleBackColor = true;
+      this.tabGDefCompl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.tabGDefCompl.Controls.Add(this.txtValorDefault);
+      this.tabGDefCompl.Controls.Add(this.dgvGDefCompl);
+      this.tabGDefCompl.Location = new System.Drawing.Point(4, 22);
+      this.tabGDefCompl.Name = "tabGDefCompl";
+      this.tabGDefCompl.Padding = new System.Windows.Forms.Padding(3);
+      this.tabGDefCompl.Size = new System.Drawing.Size(1037, 341);
+      this.tabGDefCompl.TabIndex = 1;
+      this.tabGDefCompl.Text = "GDEFCOMPL";
+      this.tabGDefCompl.UseVisualStyleBackColor = true;
+      // 
+      // txtValorDefault
+      // 
+      this.txtValorDefault.Controls.Add(this.txtGDefTamanhoColuna);
+      this.txtValorDefault.Controls.Add(this.lblTamanhoColuna);
+      this.txtValorDefault.Controls.Add(this.btnGDefExcluirDadosGrid);
+      this.txtValorDefault.Controls.Add(this.btGDefIncluir);
+      this.txtValorDefault.Controls.Add(this.btGDefExcluir);
+      this.txtValorDefault.Controls.Add(this.txtGdefOrdem);
+      this.txtValorDefault.Controls.Add(this.lblOrdem);
+      this.txtValorDefault.Controls.Add(this.btGDefLimpar);
+      this.txtValorDefault.Controls.Add(this.lblCodColTabDinamica);
+      this.txtValorDefault.Controls.Add(this.lblCodTabDinamica);
+      this.txtValorDefault.Controls.Add(this.lblGdfDescricao);
+      this.txtValorDefault.Controls.Add(this.lblNomeColuna);
+      this.txtValorDefault.Controls.Add(this.lblGDefCodApliFormula);
+      this.txtValorDefault.Controls.Add(this.lblCodigoFormula);
+      this.txtValorDefault.Controls.Add(this.lblApliccaoTabDinamica);
+      this.txtValorDefault.Controls.Add(this.lblCodColFormula);
+      this.txtValorDefault.Controls.Add(this.lblTabDados);
+      this.txtValorDefault.Controls.Add(this.lblAplicacao);
+      this.txtValorDefault.Controls.Add(this.lblValorDefault);
+      this.txtValorDefault.Controls.Add(this.txtGDefCodigoColigadaTabelaDinamica);
+      this.txtValorDefault.Controls.Add(this.txtGDefAplicacaoTabelaDinamica);
+      this.txtValorDefault.Controls.Add(this.txtGDefCodigoTabelaDinamica);
+      this.txtValorDefault.Controls.Add(this.txtGDefDescricao);
+      this.txtValorDefault.Controls.Add(this.txtGdefCodigoColigadaFormula);
+      this.txtValorDefault.Controls.Add(this.txtGDefTabelaDados);
+      this.txtValorDefault.Controls.Add(this.chkBGdefQuebraLinha);
+      this.txtValorDefault.Controls.Add(this.chkBoxGDefPesqTabDinamCod);
+      this.txtValorDefault.Controls.Add(this.txtGDefNomeColuna);
+      this.txtValorDefault.Controls.Add(this.txtGDefCodApliFormula);
+      this.txtValorDefault.Controls.Add(this.txtGDefCodigoFormula);
+      this.txtValorDefault.Controls.Add(this.txtGdefAplicacao);
+      this.txtValorDefault.Controls.Add(this.txtGdefValorDefault);
+      this.txtValorDefault.Location = new System.Drawing.Point(619, 2);
+      this.txtValorDefault.Name = "txtValorDefault";
+      this.txtValorDefault.Size = new System.Drawing.Size(407, 329);
+      this.txtValorDefault.TabIndex = 1;
+      // 
+      // txtGDefTamanhoColuna
+      // 
+      this.txtGDefTamanhoColuna.Location = new System.Drawing.Point(322, 70);
+      this.txtGDefTamanhoColuna.Name = "txtGDefTamanhoColuna";
+      this.txtGDefTamanhoColuna.Size = new System.Drawing.Size(51, 20);
+      this.txtGDefTamanhoColuna.TabIndex = 72;
+      // 
+      // lblTamanhoColuna
+      // 
+      this.lblTamanhoColuna.AutoSize = true;
+      this.lblTamanhoColuna.Location = new System.Drawing.Point(307, 54);
+      this.lblTamanhoColuna.Name = "lblTamanhoColuna";
+      this.lblTamanhoColuna.Size = new System.Drawing.Size(88, 13);
+      this.lblTamanhoColuna.TabIndex = 73;
+      this.lblTamanhoColuna.Text = "Tamanho Coluna";
+      // 
+      // btnGDefExcluirDadosGrid
+      // 
+      this.btnGDefExcluirDadosGrid.Location = new System.Drawing.Point(249, 283);
+      this.btnGDefExcluirDadosGrid.Name = "btnGDefExcluirDadosGrid";
+      this.btnGDefExcluirDadosGrid.Size = new System.Drawing.Size(150, 23);
+      this.btnGDefExcluirDadosGrid.TabIndex = 71;
+      this.btnGDefExcluirDadosGrid.Text = "Excluir Dados Grid";
+      this.btnGDefExcluirDadosGrid.UseVisualStyleBackColor = true;
+      this.btnGDefExcluirDadosGrid.Click += new System.EventHandler(this.btnGDefExcluirDadosGrid_Click);
+      // 
+      // btGDefIncluir
+      // 
+      this.btGDefIncluir.Location = new System.Drawing.Point(6, 283);
+      this.btGDefIncluir.Name = "btGDefIncluir";
+      this.btGDefIncluir.Size = new System.Drawing.Size(75, 23);
+      this.btGDefIncluir.TabIndex = 70;
+      this.btGDefIncluir.Text = "Inserir";
+      this.btGDefIncluir.UseVisualStyleBackColor = true;
+      this.btGDefIncluir.Click += new System.EventHandler(this.btGDefIncluir_Click);
+      // 
+      // btGDefExcluir
+      // 
+      this.btGDefExcluir.Location = new System.Drawing.Point(87, 283);
+      this.btGDefExcluir.Name = "btGDefExcluir";
+      this.btGDefExcluir.Size = new System.Drawing.Size(75, 23);
+      this.btGDefExcluir.TabIndex = 69;
+      this.btGDefExcluir.Text = "Excluir";
+      this.btGDefExcluir.UseVisualStyleBackColor = true;
+      this.btGDefExcluir.Click += new System.EventHandler(this.btGDefExcluir_Click);
+      // 
+      // txtGdefOrdem
+      // 
+      this.txtGdefOrdem.Location = new System.Drawing.Point(122, 208);
+      this.txtGdefOrdem.Name = "txtGdefOrdem";
+      this.txtGdefOrdem.Size = new System.Drawing.Size(51, 20);
+      this.txtGdefOrdem.TabIndex = 48;
+      // 
+      // lblOrdem
+      // 
+      this.lblOrdem.AutoSize = true;
+      this.lblOrdem.Location = new System.Drawing.Point(119, 192);
+      this.lblOrdem.Name = "lblOrdem";
+      this.lblOrdem.Size = new System.Drawing.Size(38, 13);
+      this.lblOrdem.TabIndex = 61;
+      this.lblOrdem.Text = "Ordem";
+      // 
+      // btGDefLimpar
+      // 
+      this.btGDefLimpar.Location = new System.Drawing.Point(168, 283);
+      this.btGDefLimpar.Name = "btGDefLimpar";
+      this.btGDefLimpar.Size = new System.Drawing.Size(75, 23);
+      this.btGDefLimpar.TabIndex = 68;
+      this.btGDefLimpar.Text = "Limpar";
+      this.btGDefLimpar.UseVisualStyleBackColor = true;
+      this.btGDefLimpar.Click += new System.EventHandler(this.btGDefLimpar_Click);
+      // 
+      // lblCodColTabDinamica
+      // 
+      this.lblCodColTabDinamica.AutoSize = true;
+      this.lblCodColTabDinamica.Location = new System.Drawing.Point(212, 97);
+      this.lblCodColTabDinamica.Name = "lblCodColTabDinamica";
+      this.lblCodColTabDinamica.Size = new System.Drawing.Size(113, 13);
+      this.lblCodColTabDinamica.TabIndex = 67;
+      this.lblCodColTabDinamica.Text = "Cod.Col.Tab.Dinamica";
+      // 
+      // lblCodTabDinamica
+      // 
+      this.lblCodTabDinamica.AutoSize = true;
+      this.lblCodTabDinamica.Location = new System.Drawing.Point(205, 54);
+      this.lblCodTabDinamica.Name = "lblCodTabDinamica";
+      this.lblCodTabDinamica.Size = new System.Drawing.Size(101, 13);
+      this.lblCodTabDinamica.TabIndex = 66;
+      this.lblCodTabDinamica.Text = "Cod. Tab. Dinâmica";
+      // 
+      // lblGdfDescricao
+      // 
+      this.lblGdfDescricao.AutoSize = true;
+      this.lblGdfDescricao.Location = new System.Drawing.Point(6, 54);
+      this.lblGdfDescricao.Name = "lblGdfDescricao";
+      this.lblGdfDescricao.Size = new System.Drawing.Size(55, 13);
+      this.lblGdfDescricao.TabIndex = 65;
+      this.lblGdfDescricao.Text = "Descrição";
+      // 
+      // lblNomeColuna
+      // 
+      this.lblNomeColuna.AutoSize = true;
+      this.lblNomeColuna.Location = new System.Drawing.Point(198, 8);
+      this.lblNomeColuna.Name = "lblNomeColuna";
+      this.lblNomeColuna.Size = new System.Drawing.Size(71, 13);
+      this.lblNomeColuna.TabIndex = 64;
+      this.lblNomeColuna.Text = "Nome Coluna";
+      // 
+      // lblGDefCodApliFormula
+      // 
+      this.lblGDefCodApliFormula.AutoSize = true;
+      this.lblGDefCodApliFormula.Location = new System.Drawing.Point(198, 192);
+      this.lblGDefCodApliFormula.Name = "lblGDefCodApliFormula";
+      this.lblGDefCodApliFormula.Size = new System.Drawing.Size(92, 13);
+      this.lblGDefCodApliFormula.TabIndex = 63;
+      this.lblGDefCodApliFormula.Text = "Cod. Apli. Formula";
+      // 
+      // lblCodigoFormula
+      // 
+      this.lblCodigoFormula.AutoSize = true;
+      this.lblCodigoFormula.Location = new System.Drawing.Point(10, 97);
+      this.lblCodigoFormula.Name = "lblCodigoFormula";
+      this.lblCodigoFormula.Size = new System.Drawing.Size(69, 13);
+      this.lblCodigoFormula.TabIndex = 62;
+      this.lblCodigoFormula.Text = "Cod. Formula";
+      // 
+      // lblApliccaoTabDinamica
+      // 
+      this.lblApliccaoTabDinamica.AutoSize = true;
+      this.lblApliccaoTabDinamica.Location = new System.Drawing.Point(10, 192);
+      this.lblApliccaoTabDinamica.Name = "lblApliccaoTabDinamica";
+      this.lblApliccaoTabDinamica.Size = new System.Drawing.Size(95, 13);
+      this.lblApliccaoTabDinamica.TabIndex = 60;
+      this.lblApliccaoTabDinamica.Text = "Apli. tab. Dinamica";
+      // 
+      // lblCodColFormula
+      // 
+      this.lblCodColFormula.AutoSize = true;
+      this.lblCodColFormula.Location = new System.Drawing.Point(102, 97);
+      this.lblCodColFormula.Name = "lblCodColFormula";
+      this.lblCodColFormula.Size = new System.Drawing.Size(87, 13);
+      this.lblCodColFormula.TabIndex = 59;
+      this.lblCodColFormula.Text = "Cod.Col. Formula";
+      // 
+      // lblTabDados
+      // 
+      this.lblTabDados.AutoSize = true;
+      this.lblTabDados.Location = new System.Drawing.Point(70, 8);
+      this.lblTabDados.Name = "lblTabDados";
+      this.lblTabDados.Size = new System.Drawing.Size(91, 13);
+      this.lblTabDados.TabIndex = 58;
+      this.lblTabDados.Text = "Tabela De Dados";
+      // 
+      // lblAplicacao
+      // 
+      this.lblAplicacao.AutoSize = true;
+      this.lblAplicacao.Location = new System.Drawing.Point(5, 8);
+      this.lblAplicacao.Name = "lblAplicacao";
+      this.lblAplicacao.Size = new System.Drawing.Size(54, 13);
+      this.lblAplicacao.TabIndex = 57;
+      this.lblAplicacao.Text = "Aplicação";
+      // 
+      // lblValorDefault
+      // 
+      this.lblValorDefault.AutoSize = true;
+      this.lblValorDefault.Location = new System.Drawing.Point(6, 145);
+      this.lblValorDefault.Name = "lblValorDefault";
+      this.lblValorDefault.Size = new System.Drawing.Size(68, 13);
+      this.lblValorDefault.TabIndex = 55;
+      this.lblValorDefault.Text = "Valor Default";
+      // 
+      // txtGDefCodigoColigadaTabelaDinamica
+      // 
+      this.txtGDefCodigoColigadaTabelaDinamica.Location = new System.Drawing.Point(208, 113);
+      this.txtGDefCodigoColigadaTabelaDinamica.Name = "txtGDefCodigoColigadaTabelaDinamica";
+      this.txtGDefCodigoColigadaTabelaDinamica.Size = new System.Drawing.Size(117, 20);
+      this.txtGDefCodigoColigadaTabelaDinamica.TabIndex = 54;
+      // 
+      // txtGDefAplicacaoTabelaDinamica
+      // 
+      this.txtGDefAplicacaoTabelaDinamica.Location = new System.Drawing.Point(10, 208);
+      this.txtGDefAplicacaoTabelaDinamica.Name = "txtGDefAplicacaoTabelaDinamica";
+      this.txtGDefAplicacaoTabelaDinamica.Size = new System.Drawing.Size(91, 20);
+      this.txtGDefAplicacaoTabelaDinamica.TabIndex = 53;
+      // 
+      // txtGDefCodigoTabelaDinamica
+      // 
+      this.txtGDefCodigoTabelaDinamica.Location = new System.Drawing.Point(208, 70);
+      this.txtGDefCodigoTabelaDinamica.Name = "txtGDefCodigoTabelaDinamica";
+      this.txtGDefCodigoTabelaDinamica.Size = new System.Drawing.Size(98, 20);
+      this.txtGDefCodigoTabelaDinamica.TabIndex = 52;
+      // 
+      // txtGDefDescricao
+      // 
+      this.txtGDefDescricao.Location = new System.Drawing.Point(7, 70);
+      this.txtGDefDescricao.Name = "txtGDefDescricao";
+      this.txtGDefDescricao.Size = new System.Drawing.Size(182, 20);
+      this.txtGDefDescricao.TabIndex = 51;
+      // 
+      // txtGdefCodigoColigadaFormula
+      // 
+      this.txtGdefCodigoColigadaFormula.Location = new System.Drawing.Point(103, 113);
+      this.txtGdefCodigoColigadaFormula.Name = "txtGdefCodigoColigadaFormula";
+      this.txtGdefCodigoColigadaFormula.Size = new System.Drawing.Size(86, 20);
+      this.txtGdefCodigoColigadaFormula.TabIndex = 50;
+      // 
+      // txtGDefTabelaDados
+      // 
+      this.txtGDefTabelaDados.Location = new System.Drawing.Point(74, 24);
+      this.txtGDefTabelaDados.Name = "txtGDefTabelaDados";
+      this.txtGDefTabelaDados.Size = new System.Drawing.Size(115, 20);
+      this.txtGDefTabelaDados.TabIndex = 49;
+      // 
+      // chkBGdefQuebraLinha
+      // 
+      this.chkBGdefQuebraLinha.AutoSize = true;
+      this.chkBGdefQuebraLinha.Location = new System.Drawing.Point(4, 251);
+      this.chkBGdefQuebraLinha.Name = "chkBGdefQuebraLinha";
+      this.chkBGdefQuebraLinha.Size = new System.Drawing.Size(112, 17);
+      this.chkBGdefQuebraLinha.TabIndex = 47;
+      this.chkBGdefQuebraLinha.Text = "Quebra De Linhas";
+      this.chkBGdefQuebraLinha.UseVisualStyleBackColor = true;
+      // 
+      // chkBoxGDefPesqTabDinamCod
+      // 
+      this.chkBoxGDefPesqTabDinamCod.AutoSize = true;
+      this.chkBoxGDefPesqTabDinamCod.Location = new System.Drawing.Point(122, 251);
+      this.chkBoxGDefPesqTabDinamCod.Name = "chkBoxGDefPesqTabDinamCod";
+      this.chkBoxGDefPesqTabDinamCod.Size = new System.Drawing.Size(203, 17);
+      this.chkBoxGDefPesqTabDinamCod.TabIndex = 46;
+      this.chkBoxGDefPesqTabDinamCod.Text = "Pesquisa Tabea dinamica Por Código";
+      this.chkBoxGDefPesqTabDinamCod.UseVisualStyleBackColor = true;
+      // 
+      // txtGDefNomeColuna
+      // 
+      this.txtGDefNomeColuna.Location = new System.Drawing.Point(201, 24);
+      this.txtGDefNomeColuna.Name = "txtGDefNomeColuna";
+      this.txtGDefNomeColuna.Size = new System.Drawing.Size(194, 20);
+      this.txtGDefNomeColuna.TabIndex = 45;
+      // 
+      // txtGDefCodApliFormula
+      // 
+      this.txtGDefCodApliFormula.Location = new System.Drawing.Point(200, 208);
+      this.txtGDefCodApliFormula.Name = "txtGDefCodApliFormula";
+      this.txtGDefCodApliFormula.Size = new System.Drawing.Size(101, 20);
+      this.txtGDefCodApliFormula.TabIndex = 44;
+      // 
+      // txtGDefCodigoFormula
+      // 
+      this.txtGDefCodigoFormula.Location = new System.Drawing.Point(10, 113);
+      this.txtGDefCodigoFormula.Name = "txtGDefCodigoFormula";
+      this.txtGDefCodigoFormula.Size = new System.Drawing.Size(74, 20);
+      this.txtGDefCodigoFormula.TabIndex = 43;
+      // 
+      // txtGdefAplicacao
+      // 
+      this.txtGdefAplicacao.Location = new System.Drawing.Point(7, 24);
+      this.txtGdefAplicacao.Name = "txtGdefAplicacao";
+      this.txtGdefAplicacao.Size = new System.Drawing.Size(51, 20);
+      this.txtGdefAplicacao.TabIndex = 42;
+      // 
+      // txtGdefValorDefault
+      // 
+      this.txtGdefValorDefault.Location = new System.Drawing.Point(10, 161);
+      this.txtGdefValorDefault.Name = "txtGdefValorDefault";
+      this.txtGdefValorDefault.Size = new System.Drawing.Size(392, 20);
+      this.txtGdefValorDefault.TabIndex = 40;
+      // 
+      // dgvGDefCompl
+      // 
+      this.dgvGDefCompl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this.dgvGDefCompl.Location = new System.Drawing.Point(-1, -1);
+      this.dgvGDefCompl.Name = "dgvGDefCompl";
+      this.dgvGDefCompl.Size = new System.Drawing.Size(614, 332);
+      this.dgvGDefCompl.TabIndex = 0;
+      // 
+      // tabGCamposGDic
+      // 
+      this.tabGCamposGDic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.tabGCamposGDic.Controls.Add(this.dgvGdicGcampos);
+      this.tabGCamposGDic.Controls.Add(this.panel1);
+      this.tabGCamposGDic.Location = new System.Drawing.Point(4, 22);
+      this.tabGCamposGDic.Name = "tabGCamposGDic";
+      this.tabGCamposGDic.Padding = new System.Windows.Forms.Padding(3);
+      this.tabGCamposGDic.Size = new System.Drawing.Size(1037, 341);
+      this.tabGCamposGDic.TabIndex = 0;
+      this.tabGCamposGDic.Text = "GCAMPOS/GDIC";
+      this.tabGCamposGDic.UseVisualStyleBackColor = true;
       // 
       // dgvGdicGcampos
       // 
@@ -143,7 +469,6 @@
       this.panel1.Controls.Add(this.btnGcamposGDicExcluir);
       this.panel1.Controls.Add(this.btnExcluirDadosGrid);
       this.panel1.Controls.Add(this.btnInserirDadosGCamposGdic);
-      this.panel1.Controls.Add(this.gbBancoDados);
       this.panel1.Controls.Add(this.txtAplicacao);
       this.panel1.Controls.Add(this.lblAplicacoes);
       this.panel1.Controls.Add(this.txtTabela);
@@ -192,7 +517,7 @@
       // 
       // btnGcamposGDicExcluir
       // 
-      this.btnGcamposGDicExcluir.Location = new System.Drawing.Point(262, 179);
+      this.btnGcamposGDicExcluir.Location = new System.Drawing.Point(255, 179);
       this.btnGcamposGDicExcluir.Name = "btnGcamposGDicExcluir";
       this.btnGcamposGDicExcluir.Size = new System.Drawing.Size(75, 23);
       this.btnGcamposGDicExcluir.TabIndex = 16;
@@ -212,44 +537,13 @@
       // 
       // btnInserirDadosGCamposGdic
       // 
-      this.btnInserirDadosGCamposGdic.Location = new System.Drawing.Point(262, 129);
+      this.btnInserirDadosGCamposGdic.Location = new System.Drawing.Point(255, 129);
       this.btnInserirDadosGCamposGdic.Name = "btnInserirDadosGCamposGdic";
       this.btnInserirDadosGCamposGdic.Size = new System.Drawing.Size(75, 23);
       this.btnInserirDadosGCamposGdic.TabIndex = 12;
       this.btnInserirDadosGCamposGdic.Text = "Inserir";
       this.btnInserirDadosGCamposGdic.UseVisualStyleBackColor = true;
       this.btnInserirDadosGCamposGdic.Click += new System.EventHandler(this.btnInserirDados_Click);
-      // 
-      // gbBancoDados
-      // 
-      this.gbBancoDados.Controls.Add(this.chbSql);
-      this.gbBancoDados.Controls.Add(this.chbOracle);
-      this.gbBancoDados.Location = new System.Drawing.Point(258, 11);
-      this.gbBancoDados.Name = "gbBancoDados";
-      this.gbBancoDados.Size = new System.Drawing.Size(76, 72);
-      this.gbBancoDados.TabIndex = 15;
-      this.gbBancoDados.TabStop = false;
-      this.gbBancoDados.Text = "Banco";
-      // 
-      // chbSql
-      // 
-      this.chbSql.AutoSize = true;
-      this.chbSql.Location = new System.Drawing.Point(15, 19);
-      this.chbSql.Name = "chbSql";
-      this.chbSql.Size = new System.Drawing.Size(41, 17);
-      this.chbSql.TabIndex = 6;
-      this.chbSql.Text = "Sql";
-      this.chbSql.UseVisualStyleBackColor = true;
-      // 
-      // chbOracle
-      // 
-      this.chbOracle.AutoSize = true;
-      this.chbOracle.Location = new System.Drawing.Point(15, 42);
-      this.chbOracle.Name = "chbOracle";
-      this.chbOracle.Size = new System.Drawing.Size(57, 17);
-      this.chbOracle.TabIndex = 5;
-      this.chbOracle.Text = "Oracle";
-      this.chbOracle.UseVisualStyleBackColor = true;
       // 
       // txtAplicacao
       // 
@@ -272,12 +566,12 @@
       this.txtTabela.ForeColor = System.Drawing.Color.Black;
       this.txtTabela.Location = new System.Drawing.Point(6, 83);
       this.txtTabela.Name = "txtTabela";
-      this.txtTabela.Size = new System.Drawing.Size(232, 20);
+      this.txtTabela.Size = new System.Drawing.Size(331, 20);
       this.txtTabela.TabIndex = 2;
       // 
       // btlGCamposGdicLimparCampos
       // 
-      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(262, 228);
+      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(255, 228);
       this.btlGCamposGdicLimparCampos.Name = "btlGCamposGdicLimparCampos";
       this.btlGCamposGdicLimparCampos.Size = new System.Drawing.Size(75, 23);
       this.btlGCamposGdicLimparCampos.TabIndex = 9;
@@ -288,7 +582,7 @@
       // chbRelatorio
       // 
       this.chbRelatorio.AutoSize = true;
-      this.chbRelatorio.Location = new System.Drawing.Point(262, 89);
+      this.chbRelatorio.Location = new System.Drawing.Point(262, 30);
       this.chbRelatorio.Name = "chbRelatorio";
       this.chbRelatorio.Size = new System.Drawing.Size(68, 17);
       this.chbRelatorio.TabIndex = 14;
@@ -336,355 +630,40 @@
       this.txtDescricao.Size = new System.Drawing.Size(232, 20);
       this.txtDescricao.TabIndex = 3;
       // 
-      // tabPage2
-      // 
-      this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.tabPage2.Controls.Add(this.txtValorDefault);
-      this.tabPage2.Controls.Add(this.dgvGDefCompl);
-      this.tabPage2.Location = new System.Drawing.Point(4, 22);
-      this.tabPage2.Name = "tabPage2";
-      this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(1037, 341);
-      this.tabPage2.TabIndex = 1;
-      this.tabPage2.Text = "GDEFCOMPL";
-      this.tabPage2.UseVisualStyleBackColor = true;
-      // 
-      // txtValorDefault
-      // 
-      this.txtValorDefault.Controls.Add(this.txtTipoTexto);
-      this.txtValorDefault.Controls.Add(this.lblTipoTexto);
-      this.txtValorDefault.Controls.Add(this.btnGDefExcluirDadosGrid);
-      this.txtValorDefault.Controls.Add(this.btGDefIncluir);
-      this.txtValorDefault.Controls.Add(this.btGDefExcluir);
-      this.txtValorDefault.Controls.Add(this.textBox9);
-      this.txtValorDefault.Controls.Add(this.lblOrdem);
-      this.txtValorDefault.Controls.Add(this.btGDefLimpar);
-      this.txtValorDefault.Controls.Add(this.lblCodColTabDinamica);
-      this.txtValorDefault.Controls.Add(this.lblCodTabDinamica);
-      this.txtValorDefault.Controls.Add(this.lblGdfDescricao);
-      this.txtValorDefault.Controls.Add(this.lblNomeColuna);
-      this.txtValorDefault.Controls.Add(this.lblDodTabDinamica);
-      this.txtValorDefault.Controls.Add(this.lblCodigoFormula);
-      this.txtValorDefault.Controls.Add(this.lblApliccaoTabDinamica);
-      this.txtValorDefault.Controls.Add(this.lblCodColFormula);
-      this.txtValorDefault.Controls.Add(this.lblTabDados);
-      this.txtValorDefault.Controls.Add(this.lblAplicacao);
-      this.txtValorDefault.Controls.Add(this.lblColigada);
-      this.txtValorDefault.Controls.Add(this.lblValorDefault);
-      this.txtValorDefault.Controls.Add(this.txtCodColTabDinamica);
-      this.txtValorDefault.Controls.Add(this.textBox13);
-      this.txtValorDefault.Controls.Add(this.textBox4);
-      this.txtValorDefault.Controls.Add(this.textBox5);
-      this.txtValorDefault.Controls.Add(this.textBox10);
-      this.txtValorDefault.Controls.Add(this.textBox11);
-      this.txtValorDefault.Controls.Add(this.chkBoxQuebraLinha);
-      this.txtValorDefault.Controls.Add(this.chkBoxPesqTabDinamCod);
-      this.txtValorDefault.Controls.Add(this.txtNomeColuna);
-      this.txtValorDefault.Controls.Add(this.textBox7);
-      this.txtValorDefault.Controls.Add(this.textBox8);
-      this.txtValorDefault.Controls.Add(this.textBox3);
-      this.txtValorDefault.Controls.Add(this.txtColigada);
-      this.txtValorDefault.Controls.Add(this.textBox1);
-      this.txtValorDefault.Location = new System.Drawing.Point(619, 2);
-      this.txtValorDefault.Name = "txtValorDefault";
-      this.txtValorDefault.Size = new System.Drawing.Size(407, 329);
-      this.txtValorDefault.TabIndex = 1;
-      // 
-      // txtTipoTexto
-      // 
-      this.txtTipoTexto.Location = new System.Drawing.Point(285, 209);
-      this.txtTipoTexto.Name = "txtTipoTexto";
-      this.txtTipoTexto.Size = new System.Drawing.Size(51, 20);
-      this.txtTipoTexto.TabIndex = 72;
-      // 
-      // lblTipoTexto
-      // 
-      this.lblTipoTexto.AutoSize = true;
-      this.lblTipoTexto.Location = new System.Drawing.Point(282, 193);
-      this.lblTipoTexto.Name = "lblTipoTexto";
-      this.lblTipoTexto.Size = new System.Drawing.Size(58, 13);
-      this.lblTipoTexto.TabIndex = 73;
-      this.lblTipoTexto.Text = "Tipo Texto";
-      // 
-      // btnGDefExcluirDadosGrid
-      // 
-      this.btnGDefExcluirDadosGrid.Location = new System.Drawing.Point(249, 283);
-      this.btnGDefExcluirDadosGrid.Name = "btnGDefExcluirDadosGrid";
-      this.btnGDefExcluirDadosGrid.Size = new System.Drawing.Size(150, 23);
-      this.btnGDefExcluirDadosGrid.TabIndex = 71;
-      this.btnGDefExcluirDadosGrid.Text = "Excluir Dados Grid";
-      this.btnGDefExcluirDadosGrid.UseVisualStyleBackColor = true;
-      this.btnGDefExcluirDadosGrid.Click += new System.EventHandler(this.btnGDefExcluirDadosGrid_Click);
-      // 
-      // btGDefIncluir
-      // 
-      this.btGDefIncluir.Location = new System.Drawing.Point(6, 283);
-      this.btGDefIncluir.Name = "btGDefIncluir";
-      this.btGDefIncluir.Size = new System.Drawing.Size(75, 23);
-      this.btGDefIncluir.TabIndex = 70;
-      this.btGDefIncluir.Text = "Incluir";
-      this.btGDefIncluir.UseVisualStyleBackColor = true;
-      this.btGDefIncluir.Click += new System.EventHandler(this.btGDefIncluir_Click);
-      // 
-      // btGDefExcluir
-      // 
-      this.btGDefExcluir.Location = new System.Drawing.Point(87, 283);
-      this.btGDefExcluir.Name = "btGDefExcluir";
-      this.btGDefExcluir.Size = new System.Drawing.Size(75, 23);
-      this.btGDefExcluir.TabIndex = 69;
-      this.btGDefExcluir.Text = "Excluir";
-      this.btGDefExcluir.UseVisualStyleBackColor = true;
-      this.btGDefExcluir.Click += new System.EventHandler(this.btGDefExcluir_Click);
-      // 
-      // textBox9
-      // 
-      this.textBox9.Location = new System.Drawing.Point(111, 209);
-      this.textBox9.Name = "textBox9";
-      this.textBox9.Size = new System.Drawing.Size(51, 20);
-      this.textBox9.TabIndex = 48;
-      // 
-      // lblOrdem
-      // 
-      this.lblOrdem.AutoSize = true;
-      this.lblOrdem.Location = new System.Drawing.Point(108, 193);
-      this.lblOrdem.Name = "lblOrdem";
-      this.lblOrdem.Size = new System.Drawing.Size(38, 13);
-      this.lblOrdem.TabIndex = 61;
-      this.lblOrdem.Text = "Ordem";
-      // 
-      // btGDefLimpar
-      // 
-      this.btGDefLimpar.Location = new System.Drawing.Point(168, 283);
-      this.btGDefLimpar.Name = "btGDefLimpar";
-      this.btGDefLimpar.Size = new System.Drawing.Size(75, 23);
-      this.btGDefLimpar.TabIndex = 68;
-      this.btGDefLimpar.Text = "Limpar";
-      this.btGDefLimpar.UseVisualStyleBackColor = true;
-      this.btGDefLimpar.Click += new System.EventHandler(this.btGDefLimpar_Click);
-      // 
-      // lblCodColTabDinamica
-      // 
-      this.lblCodColTabDinamica.AutoSize = true;
-      this.lblCodColTabDinamica.Location = new System.Drawing.Point(205, 93);
-      this.lblCodColTabDinamica.Name = "lblCodColTabDinamica";
-      this.lblCodColTabDinamica.Size = new System.Drawing.Size(113, 13);
-      this.lblCodColTabDinamica.TabIndex = 67;
-      this.lblCodColTabDinamica.Text = "Cod.Col.Tab.Dinamica";
-      // 
-      // lblCodTabDinamica
-      // 
-      this.lblCodTabDinamica.AutoSize = true;
-      this.lblCodTabDinamica.Location = new System.Drawing.Point(205, 54);
-      this.lblCodTabDinamica.Name = "lblCodTabDinamica";
-      this.lblCodTabDinamica.Size = new System.Drawing.Size(101, 13);
-      this.lblCodTabDinamica.TabIndex = 66;
-      this.lblCodTabDinamica.Text = "Cod. Tab. Dinâmica";
-      // 
-      // lblGdfDescricao
-      // 
-      this.lblGdfDescricao.AutoSize = true;
-      this.lblGdfDescricao.Location = new System.Drawing.Point(6, 54);
-      this.lblGdfDescricao.Name = "lblGdfDescricao";
-      this.lblGdfDescricao.Size = new System.Drawing.Size(55, 13);
-      this.lblGdfDescricao.TabIndex = 65;
-      this.lblGdfDescricao.Text = "Descrição";
-      // 
-      // lblNomeColuna
-      // 
-      this.lblNomeColuna.AutoSize = true;
-      this.lblNomeColuna.Location = new System.Drawing.Point(205, 8);
-      this.lblNomeColuna.Name = "lblNomeColuna";
-      this.lblNomeColuna.Size = new System.Drawing.Size(70, 13);
-      this.lblNomeColuna.TabIndex = 64;
-      this.lblNomeColuna.Text = "Nome coluna";
-      // 
-      // lblDodTabDinamica
-      // 
-      this.lblDodTabDinamica.AutoSize = true;
-      this.lblDodTabDinamica.Location = new System.Drawing.Point(4, 97);
-      this.lblDodTabDinamica.Name = "lblDodTabDinamica";
-      this.lblDodTabDinamica.Size = new System.Drawing.Size(98, 13);
-      this.lblDodTabDinamica.TabIndex = 63;
-      this.lblDodTabDinamica.Text = "Cod.Tab. Dinamica";
-      // 
-      // lblCodigoFormula
-      // 
-      this.lblCodigoFormula.AutoSize = true;
-      this.lblCodigoFormula.Location = new System.Drawing.Point(116, 97);
-      this.lblCodigoFormula.Name = "lblCodigoFormula";
-      this.lblCodigoFormula.Size = new System.Drawing.Size(69, 13);
-      this.lblCodigoFormula.TabIndex = 62;
-      this.lblCodigoFormula.Text = "Cod. Formula";
-      // 
-      // lblApliccaoTabDinamica
-      // 
-      this.lblApliccaoTabDinamica.AutoSize = true;
-      this.lblApliccaoTabDinamica.Location = new System.Drawing.Point(6, 193);
-      this.lblApliccaoTabDinamica.Name = "lblApliccaoTabDinamica";
-      this.lblApliccaoTabDinamica.Size = new System.Drawing.Size(95, 13);
-      this.lblApliccaoTabDinamica.TabIndex = 60;
-      this.lblApliccaoTabDinamica.Text = "Apli. tab. Dinamica";
-      // 
-      // lblCodColFormula
-      // 
-      this.lblCodColFormula.AutoSize = true;
-      this.lblCodColFormula.Location = new System.Drawing.Point(177, 193);
-      this.lblCodColFormula.Name = "lblCodColFormula";
-      this.lblCodColFormula.Size = new System.Drawing.Size(87, 13);
-      this.lblCodColFormula.TabIndex = 59;
-      this.lblCodColFormula.Text = "Cod.Col. Formula";
-      // 
-      // lblTabDados
-      // 
-      this.lblTabDados.AutoSize = true;
-      this.lblTabDados.Location = new System.Drawing.Point(134, 8);
-      this.lblTabDados.Name = "lblTabDados";
-      this.lblTabDados.Size = new System.Drawing.Size(60, 13);
-      this.lblTabDados.TabIndex = 58;
-      this.lblTabDados.Text = "Tab Dados";
-      // 
-      // lblAplicacao
-      // 
-      this.lblAplicacao.AutoSize = true;
-      this.lblAplicacao.Location = new System.Drawing.Point(70, 8);
-      this.lblAplicacao.Name = "lblAplicacao";
-      this.lblAplicacao.Size = new System.Drawing.Size(54, 13);
-      this.lblAplicacao.TabIndex = 57;
-      this.lblAplicacao.Text = "Aplicação";
-      // 
-      // lblColigada
-      // 
-      this.lblColigada.AutoSize = true;
-      this.lblColigada.Location = new System.Drawing.Point(4, 8);
-      this.lblColigada.Name = "lblColigada";
-      this.lblColigada.Size = new System.Drawing.Size(48, 13);
-      this.lblColigada.TabIndex = 56;
-      this.lblColigada.Text = "Coligada";
-      // 
-      // lblValorDefault
-      // 
-      this.lblValorDefault.AutoSize = true;
-      this.lblValorDefault.Location = new System.Drawing.Point(8, 145);
-      this.lblValorDefault.Name = "lblValorDefault";
-      this.lblValorDefault.Size = new System.Drawing.Size(68, 13);
-      this.lblValorDefault.TabIndex = 55;
-      this.lblValorDefault.Text = "Valor Default";
-      // 
-      // txtCodColTabDinamica
-      // 
-      this.txtCodColTabDinamica.Location = new System.Drawing.Point(208, 113);
-      this.txtCodColTabDinamica.Name = "txtCodColTabDinamica";
-      this.txtCodColTabDinamica.Size = new System.Drawing.Size(194, 20);
-      this.txtCodColTabDinamica.TabIndex = 54;
-      // 
-      // textBox13
-      // 
-      this.textBox13.Location = new System.Drawing.Point(6, 209);
-      this.textBox13.Name = "textBox13";
-      this.textBox13.Size = new System.Drawing.Size(91, 20);
-      this.textBox13.TabIndex = 53;
-      // 
-      // textBox4
-      // 
-      this.textBox4.Location = new System.Drawing.Point(208, 70);
-      this.textBox4.Name = "textBox4";
-      this.textBox4.Size = new System.Drawing.Size(194, 20);
-      this.textBox4.TabIndex = 52;
-      // 
-      // textBox5
-      // 
-      this.textBox5.Location = new System.Drawing.Point(7, 70);
-      this.textBox5.Name = "textBox5";
-      this.textBox5.Size = new System.Drawing.Size(182, 20);
-      this.textBox5.TabIndex = 51;
-      // 
-      // textBox10
-      // 
-      this.textBox10.Location = new System.Drawing.Point(178, 209);
-      this.textBox10.Name = "textBox10";
-      this.textBox10.Size = new System.Drawing.Size(86, 20);
-      this.textBox10.TabIndex = 50;
-      // 
-      // textBox11
-      // 
-      this.textBox11.Location = new System.Drawing.Point(138, 24);
-      this.textBox11.Name = "textBox11";
-      this.textBox11.Size = new System.Drawing.Size(51, 20);
-      this.textBox11.TabIndex = 49;
-      // 
-      // chkBoxQuebraLinha
-      // 
-      this.chkBoxQuebraLinha.AutoSize = true;
-      this.chkBoxQuebraLinha.Location = new System.Drawing.Point(4, 251);
-      this.chkBoxQuebraLinha.Name = "chkBoxQuebraLinha";
-      this.chkBoxQuebraLinha.Size = new System.Drawing.Size(112, 17);
-      this.chkBoxQuebraLinha.TabIndex = 47;
-      this.chkBoxQuebraLinha.Text = "Quebra De Linhas";
-      this.chkBoxQuebraLinha.UseVisualStyleBackColor = true;
-      // 
-      // chkBoxPesqTabDinamCod
-      // 
-      this.chkBoxPesqTabDinamCod.AutoSize = true;
-      this.chkBoxPesqTabDinamCod.Location = new System.Drawing.Point(122, 251);
-      this.chkBoxPesqTabDinamCod.Name = "chkBoxPesqTabDinamCod";
-      this.chkBoxPesqTabDinamCod.Size = new System.Drawing.Size(203, 17);
-      this.chkBoxPesqTabDinamCod.TabIndex = 46;
-      this.chkBoxPesqTabDinamCod.Text = "Pesquisa Tabea dinamica Por Código";
-      this.chkBoxPesqTabDinamCod.UseVisualStyleBackColor = true;
-      // 
-      // txtNomeColuna
-      // 
-      this.txtNomeColuna.Location = new System.Drawing.Point(208, 24);
-      this.txtNomeColuna.Name = "txtNomeColuna";
-      this.txtNomeColuna.Size = new System.Drawing.Size(194, 20);
-      this.txtNomeColuna.TabIndex = 45;
-      // 
-      // textBox7
-      // 
-      this.textBox7.Location = new System.Drawing.Point(6, 113);
-      this.textBox7.Name = "textBox7";
-      this.textBox7.Size = new System.Drawing.Size(101, 20);
-      this.textBox7.TabIndex = 44;
-      // 
-      // textBox8
-      // 
-      this.textBox8.Location = new System.Drawing.Point(116, 113);
-      this.textBox8.Name = "textBox8";
-      this.textBox8.Size = new System.Drawing.Size(74, 20);
-      this.textBox8.TabIndex = 43;
-      // 
-      // textBox3
-      // 
-      this.textBox3.Location = new System.Drawing.Point(72, 24);
-      this.textBox3.Name = "textBox3";
-      this.textBox3.Size = new System.Drawing.Size(51, 20);
-      this.textBox3.TabIndex = 42;
-      // 
-      // txtColigada
-      // 
-      this.txtColigada.Location = new System.Drawing.Point(7, 24);
-      this.txtColigada.Name = "txtColigada";
-      this.txtColigada.Size = new System.Drawing.Size(50, 20);
-      this.txtColigada.TabIndex = 41;
-      // 
-      // textBox1
-      // 
-      this.textBox1.Location = new System.Drawing.Point(6, 161);
-      this.textBox1.Name = "textBox1";
-      this.textBox1.Size = new System.Drawing.Size(396, 20);
-      this.textBox1.TabIndex = 40;
-      // 
-      // dgvGDefCompl
-      // 
-      this.dgvGDefCompl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.dgvGDefCompl.Location = new System.Drawing.Point(-1, -1);
-      this.dgvGDefCompl.Name = "dgvGDefCompl";
-      this.dgvGDefCompl.Size = new System.Drawing.Size(614, 332);
-      this.dgvGDefCompl.TabIndex = 0;
+      // gbBancoDados
+      // 
+      this.gbBancoDados.Controls.Add(this.chbSql);
+      this.gbBancoDados.Controls.Add(this.chbOracle);
+      this.gbBancoDados.Location = new System.Drawing.Point(311, 12);
+      this.gbBancoDados.Name = "gbBancoDados";
+      this.gbBancoDados.Size = new System.Drawing.Size(138, 42);
+      this.gbBancoDados.TabIndex = 15;
+      this.gbBancoDados.TabStop = false;
+      this.gbBancoDados.Text = "Banco";
+      // 
+      // chbSql
+      // 
+      this.chbSql.AutoSize = true;
+      this.chbSql.Location = new System.Drawing.Point(15, 19);
+      this.chbSql.Name = "chbSql";
+      this.chbSql.Size = new System.Drawing.Size(41, 17);
+      this.chbSql.TabIndex = 6;
+      this.chbSql.Text = "Sql";
+      this.chbSql.UseVisualStyleBackColor = true;
+      // 
+      // chbOracle
+      // 
+      this.chbOracle.AutoSize = true;
+      this.chbOracle.Location = new System.Drawing.Point(74, 18);
+      this.chbOracle.Name = "chbOracle";
+      this.chbOracle.Size = new System.Drawing.Size(57, 17);
+      this.chbOracle.TabIndex = 5;
+      this.chbOracle.Text = "Oracle";
+      this.chbOracle.UseVisualStyleBackColor = true;
       // 
       // btnSair
       // 
-      this.btnSair.Location = new System.Drawing.Point(959, 415);
+      this.btnSair.Location = new System.Drawing.Point(967, 422);
       this.btnSair.Name = "btnSair";
       this.btnSair.Size = new System.Drawing.Size(75, 23);
       this.btnSair.TabIndex = 16;
@@ -694,7 +673,7 @@
       // 
       // btnSalvarScript
       // 
-      this.btnSalvarScript.Location = new System.Drawing.Point(875, 415);
+      this.btnSalvarScript.Location = new System.Drawing.Point(883, 422);
       this.btnSalvarScript.Name = "btnSalvarScript";
       this.btnSalvarScript.Size = new System.Drawing.Size(75, 23);
       this.btnSalvarScript.TabIndex = 15;
@@ -702,18 +681,18 @@
       this.btnSalvarScript.UseVisualStyleBackColor = true;
       this.btnSalvarScript.Click += new System.EventHandler(this.btnSalvarScript_Click);
       // 
-      // textBox2
+      // txtNomeProjeto
       // 
-      this.textBox2.ForeColor = System.Drawing.Color.Black;
-      this.textBox2.Location = new System.Drawing.Point(58, 12);
-      this.textBox2.Name = "textBox2";
-      this.textBox2.Size = new System.Drawing.Size(232, 20);
-      this.textBox2.TabIndex = 20;
+      this.txtNomeProjeto.ForeColor = System.Drawing.Color.Black;
+      this.txtNomeProjeto.Location = new System.Drawing.Point(55, 27);
+      this.txtNomeProjeto.Name = "txtNomeProjeto";
+      this.txtNomeProjeto.Size = new System.Drawing.Size(232, 20);
+      this.txtNomeProjeto.TabIndex = 20;
       // 
       // lblProjeto
       // 
       this.lblProjeto.AutoSize = true;
-      this.lblProjeto.Location = new System.Drawing.Point(12, 15);
+      this.lblProjeto.Location = new System.Drawing.Point(9, 30);
       this.lblProjeto.Name = "lblProjeto";
       this.lblProjeto.Size = new System.Drawing.Size(40, 13);
       this.lblProjeto.TabIndex = 20;
@@ -725,17 +704,22 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1045, 450);
       this.Controls.Add(this.lblProjeto);
-      this.Controls.Add(this.textBox2);
+      this.Controls.Add(this.txtNomeProjeto);
       this.Controls.Add(this.btnSair);
       this.Controls.Add(this.btnSalvarScript);
+      this.Controls.Add(this.gbBancoDados);
       this.Controls.Add(this.txtNoeProjeto);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Script";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Script";
       this.txtNoeProjeto.ResumeLayout(false);
-      this.tabPage1.ResumeLayout(false);
-      this.tabPage1.PerformLayout();
+      this.tabGDefCompl.ResumeLayout(false);
+      this.txtValorDefault.ResumeLayout(false);
+      this.txtValorDefault.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.dgvGDefCompl)).EndInit();
+      this.tabGCamposGDic.ResumeLayout(false);
+      this.tabGCamposGDic.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvGdicGcampos)).EndInit();
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
@@ -743,10 +727,6 @@
       this.gbTabela.PerformLayout();
       this.gbBancoDados.ResumeLayout(false);
       this.gbBancoDados.PerformLayout();
-      this.tabPage2.ResumeLayout(false);
-      this.txtValorDefault.ResumeLayout(false);
-      this.txtValorDefault.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.dgvGDefCompl)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -755,7 +735,7 @@
     #endregion
 
     private System.Windows.Forms.TabControl txtNoeProjeto;
-    private System.Windows.Forms.TabPage tabPage1;
+    private System.Windows.Forms.TabPage tabGCamposGDic;
     private System.Windows.Forms.DataGridView dgvGdicGcampos;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.GroupBox gbTabela;
@@ -777,46 +757,44 @@
     private System.Windows.Forms.Label lblDescricao;
     private System.Windows.Forms.TextBox txtColuna;
     private System.Windows.Forms.TextBox txtDescricao;
-    private System.Windows.Forms.TabPage tabPage2;
+    private System.Windows.Forms.TabPage tabGDefCompl;
     private System.Windows.Forms.Panel txtValorDefault;
-    private System.Windows.Forms.TextBox txtTipoTexto;
-    private System.Windows.Forms.Label lblTipoTexto;
+    private System.Windows.Forms.TextBox txtGDefTamanhoColuna;
+    private System.Windows.Forms.Label lblTamanhoColuna;
     private System.Windows.Forms.Button btnGDefExcluirDadosGrid;
     private System.Windows.Forms.Button btGDefIncluir;
     private System.Windows.Forms.Button btGDefExcluir;
-    private System.Windows.Forms.TextBox textBox9;
+    private System.Windows.Forms.TextBox txtGdefOrdem;
     private System.Windows.Forms.Label lblOrdem;
     private System.Windows.Forms.Button btGDefLimpar;
     private System.Windows.Forms.Label lblCodColTabDinamica;
     private System.Windows.Forms.Label lblCodTabDinamica;
     private System.Windows.Forms.Label lblGdfDescricao;
     private System.Windows.Forms.Label lblNomeColuna;
-    private System.Windows.Forms.Label lblDodTabDinamica;
+    private System.Windows.Forms.Label lblGDefCodApliFormula;
     private System.Windows.Forms.Label lblCodigoFormula;
     private System.Windows.Forms.Label lblApliccaoTabDinamica;
     private System.Windows.Forms.Label lblCodColFormula;
     private System.Windows.Forms.Label lblTabDados;
     private System.Windows.Forms.Label lblAplicacao;
-    private System.Windows.Forms.Label lblColigada;
     private System.Windows.Forms.Label lblValorDefault;
-    private System.Windows.Forms.TextBox txtCodColTabDinamica;
-    private System.Windows.Forms.TextBox textBox13;
-    private System.Windows.Forms.TextBox textBox4;
-    private System.Windows.Forms.TextBox textBox5;
-    private System.Windows.Forms.TextBox textBox10;
-    private System.Windows.Forms.TextBox textBox11;
-    private System.Windows.Forms.CheckBox chkBoxQuebraLinha;
-    private System.Windows.Forms.CheckBox chkBoxPesqTabDinamCod;
-    private System.Windows.Forms.TextBox txtNomeColuna;
-    private System.Windows.Forms.TextBox textBox7;
-    private System.Windows.Forms.TextBox textBox8;
-    private System.Windows.Forms.TextBox textBox3;
-    private System.Windows.Forms.TextBox txtColigada;
-    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox txtGDefCodigoColigadaTabelaDinamica;
+    private System.Windows.Forms.TextBox txtGDefAplicacaoTabelaDinamica;
+    private System.Windows.Forms.TextBox txtGDefCodigoTabelaDinamica;
+    private System.Windows.Forms.TextBox txtGDefDescricao;
+    private System.Windows.Forms.TextBox txtGdefCodigoColigadaFormula;
+    private System.Windows.Forms.TextBox txtGDefTabelaDados;
+    private System.Windows.Forms.CheckBox chkBGdefQuebraLinha;
+    private System.Windows.Forms.CheckBox chkBoxGDefPesqTabDinamCod;
+    private System.Windows.Forms.TextBox txtGDefNomeColuna;
+    private System.Windows.Forms.TextBox txtGDefCodApliFormula;
+    private System.Windows.Forms.TextBox txtGDefCodigoFormula;
+    private System.Windows.Forms.TextBox txtGdefAplicacao;
+    private System.Windows.Forms.TextBox txtGdefValorDefault;
     private System.Windows.Forms.DataGridView dgvGDefCompl;
     private System.Windows.Forms.Button btnSair;
     private System.Windows.Forms.Button btnSalvarScript;
-    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.TextBox txtNomeProjeto;
     private System.Windows.Forms.Label lblProjeto;
   }
 }
