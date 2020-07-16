@@ -26,24 +26,28 @@ namespace BLL
           outfile.Write(sqlGDefCompl.GeraInsertSqlGDef(item));
         }
 
-        SqlGCamposGDic sqlGCamposGDic = new SqlGCamposGDic();
         foreach (var item in gCamposGDic)
         {          
-          outfile.Write(sqlGCamposGDic.GeraInsertSqlGCamposGDic(item));
+          outfile.Write(sqlGDefCompl.GeraInsertSqlGCamposGDic(item));
         }
       }
     }
 
-    public void SalvarScriptOracle(string fileName, List<GCamposGDic> modeloCamposGDic)
+    public void SalvarScriptOracle(string fileName, List<GDefCompl> gDefCompls, List<GCamposGDic> modeloCamposGDic)
     {
       using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
       {
         OracleGCamposGDic oracleSsqlGCamposGDic = new OracleGCamposGDic();
 
+        foreach (var item in gDefCompls)
+        {
+          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracleGDef(item));
+        }
+
         foreach (var item in modeloCamposGDic)
         {
           StringBuilder builder = new StringBuilder();
-          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracle(item, builder));
+          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracleGCamposGDic(item));
         }
       }
     }

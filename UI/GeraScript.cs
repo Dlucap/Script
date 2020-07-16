@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace UI
 {
-  public partial class Script : Form
+  public partial class GeraScript : Form
   {
     CollectionsGCamposGDic gCamposGdic = new CollectionsGCamposGDic();
     CollectionsGDefCompl gDefCompl = new CollectionsGDefCompl();
 
-    public Script()
+    public GeraScript()
     {
       InitializeComponent();
       //CarregaColunasDataGridGCamposGdic();
@@ -36,7 +36,7 @@ namespace UI
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message);
+        MessageBox.Show(ex.Message,"Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
       gCamposGdic.Add(GetDadosGcamposGic());
@@ -89,14 +89,14 @@ namespace UI
         //verifica se salva sql ou oracle
         if (sql == true)
         {
-          saveScript.SalvarScriptSQL(path,gDefCompl ,gCamposGdic);
+          saveScript.SalvarScriptSQL(path, gDefCompl, gCamposGdic);
         }
         else
         {
-          saveScript.SalvarScriptOracle(path, gCamposGdic);
+          saveScript.SalvarScriptOracle(path, gDefCompl,gCamposGdic);
         }
         Clipboard.SetText(path);
-        MessageBox.Show($"Salvo com Sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
+        MessageBox.Show($"Salvo com sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
         //Process.Start("explorer.exe", path);
         //Clipboard.SetText(Convert.ToString(script));
       }
@@ -131,14 +131,14 @@ namespace UI
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (!ValidaCamposPreenchidosGDef(out builder))
+        if (ValidaCamposPreenchidosGDef(out builder))
         {
           throw new Exception(Convert.ToString(builder));
         }
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message);
+        MessageBox.Show(ex.Message,"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Warning);
         return;
       }
       gDefCompl.Add(GetDadosGDefCompl());
@@ -160,28 +160,28 @@ namespace UI
         builder.Append("");
       }
       */
-      if (String.IsNullOrEmpty(txtAplicacao.Text))
+      if (String.IsNullOrEmpty(txtGdefAplicacao.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Aplicação.");
+        builder.AppendLine("Informe o campo Aplicação.");
       }
 
       if (String.IsNullOrEmpty(txtGDefTabelaDados.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Tabela Dados.");
+        builder.AppendLine("Informe o campo Tabela Dados.");
       }
 
       if (String.IsNullOrEmpty(txtGDefNomeColuna.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Nome Coluna.");
+        builder.AppendLine("Informe o campo Nome Coluna.");
       }
 
-      if (String.IsNullOrEmpty(txtDescricao.Text))
+      if (String.IsNullOrEmpty(txtGDefDescricao.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Descrição.");
+        builder.AppendLine("Informe o campo Descrição.");
       }
       /*
       if (String.IsNullOrEmpty(txtGDefCodigoTabelaDinamica.Text))
@@ -205,19 +205,19 @@ namespace UI
       if (String.IsNullOrEmpty(txtGDefCodigoColigadaTabelaDinamica.Text))
       {
         erro = true;
-        builder.Append("");
+        builder.AppendLine("Informe o campo Codigo Coligada Tabela Dinâmica.");
       }
 
       if (String.IsNullOrEmpty(txtGDefAplicacaoTabelaDinamica.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Aplicação tabela Dinamica.");
+        builder.AppendLine("Informe o campo Aplicação tabela Dinamica.");
       }
 
       if (String.IsNullOrEmpty(txtGdefOrdem.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Ordem.");
+        builder.AppendLine("Informe o campo Ordem.");
       }
       /*     
       if (String.IsNullOrEmpty(txtGdefCodigoColigadaFormula.Text))
@@ -235,7 +235,7 @@ namespace UI
       if (String.IsNullOrEmpty(txtGDefTamanhoColuna.Text))
       {
         erro = true;
-        builder.Append("Informe o campo Tamanho Coluna.");
+        builder.AppendLine("Informe o campo Tamanho Coluna.");
       }
 
       return erro;
@@ -302,7 +302,7 @@ namespace UI
       gDefCompl.Aplicacao = txtGdefAplicacao.Text;
       gDefCompl.TabelaDados = txtGDefTabelaDados.Text;
       gDefCompl.NomeColuna = txtGDefNomeColuna.Text;
-      gDefCompl.Descricao = txtDescricao.Text;
+      gDefCompl.Descricao = txtGDefDescricao.Text;
       gDefCompl.CodTabelaDinamica = txtGDefCodigoTabelaDinamica.Text;
       gDefCompl.Codformula = txtGDefCodigoFormula.Text;
       gDefCompl.ValorDefault = txtGdefValorDefault.Text;

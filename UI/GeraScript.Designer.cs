@@ -1,6 +1,6 @@
 ﻿namespace UI
 {
-  partial class Script
+  partial class GeraScript
   {
     /// <summary>
     /// Required designer variable.
@@ -28,7 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Script));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeraScript));
       this.txtNoeProjeto = new System.Windows.Forms.TabControl();
       this.tabGDefCompl = new System.Windows.Forms.TabPage();
       this.txtValorDefault = new System.Windows.Forms.Panel();
@@ -275,7 +275,7 @@
       // lblGDefCodApliFormula
       // 
       this.lblGDefCodApliFormula.AutoSize = true;
-      this.lblGDefCodApliFormula.Location = new System.Drawing.Point(198, 192);
+      this.lblGDefCodApliFormula.Location = new System.Drawing.Point(199, 192);
       this.lblGDefCodApliFormula.Name = "lblGDefCodApliFormula";
       this.lblGDefCodApliFormula.Size = new System.Drawing.Size(92, 13);
       this.lblGDefCodApliFormula.TabIndex = 63;
@@ -406,7 +406,7 @@
       // 
       // txtGDefCodApliFormula
       // 
-      this.txtGDefCodApliFormula.Location = new System.Drawing.Point(200, 208);
+      this.txtGDefCodApliFormula.Location = new System.Drawing.Point(201, 208);
       this.txtGDefCodApliFormula.Name = "txtGDefCodApliFormula";
       this.txtGDefCodApliFormula.Size = new System.Drawing.Size(101, 20);
       this.txtGDefCodApliFormula.TabIndex = 44;

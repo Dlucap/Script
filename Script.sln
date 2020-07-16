@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{6DF70CA1-405A-4318-835D-F9C48DCE1660}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeraScript", "UI\GeraScript.csproj", "{6DF70CA1-405A-4318-835D-F9C48DCE1660}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{EB25F1EF-F49C-4B22-A3D0-0FBF4C99CB3A}"
 EndProject
