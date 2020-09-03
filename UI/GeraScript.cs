@@ -1,13 +1,10 @@
 ﻿using BLL;
 using DTO;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace UI
@@ -29,7 +26,7 @@ namespace UI
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (!ValidaCamposPreenchidosGCampos(out builder))
+        if (ValidaCamposPreenchidosGCampos(out builder))
         {
           throw new Exception(Convert.ToString(builder));
         }
@@ -83,24 +80,30 @@ namespace UI
 
       if (saveFileDialog1.ShowDialog() == DialogResult.OK)
       {
-        String path = saveFileDialog1.FileName;
-        //  StringBuilder script = new StringBuilder();// project.ScriptCreator.generateGLinksRelsAndGCampos();
-
+        String path = String.Empty;
         //verifica se salva sql ou oracle
         if (sql == true)
         {
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName,sql);
           saveScript.SalvarScriptSQL(path, gDefCompl, gCamposGdic);
         }
         else
         {
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName,sql);
           saveScript.SalvarScriptOracle(path, gDefCompl,gCamposGdic);
         }
         Clipboard.SetText(path);
         MessageBox.Show($"Salvo com sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
         //Process.Start("explorer.exe", path);
-        //Clipboard.SetText(Convert.ToString(script));
+     
       }
 
+    }
+
+    private string ManipulaNomeArquivo(string fileName, bool sqlOracle)
+    {
+      var banco = (sqlOracle) ? "_MSSQL.sql":"_ORACLE.sql";
+      return fileName.Replace(".sql",banco);
     }
 
     private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
@@ -119,8 +122,8 @@ namespace UI
       dgvGdicGcampos.Columns.Add("Descrição", "Descrição");//Acrescenta colunas
       dgvGdicGcampos.Columns.Add("Relatório", "Relatório");//Acrescenta colunas
       dgvGdicGcampos.Columns.Add("Aplicações", "Aplicações");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Sql", "Sql");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Oracle", "Oracle");//Acrescenta colunas
+      //dgvGdicGcampos.Columns.Add("Sql", "Sql");//Acrescenta colunas
+      //dgvGdicGcampos.Columns.Add("Oracle", "Oracle");//Acrescenta colunas
     }
 
     #endregion GCamposGdic
@@ -153,92 +156,110 @@ namespace UI
     {
       builder = new StringBuilder();
       bool erro = false;
-      /*
-      if (String.IsNullOrEmpty(txtGDefColigada.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
-      */
-      if (String.IsNullOrEmpty(txtGdefAplicacao.Text))
+          
+      if (String.IsNullOrEmpty(txtGdefAplicacao.Text) || String.IsNullOrWhiteSpace(txtGdefAplicacao.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Aplicação.");
       }
 
-      if (String.IsNullOrEmpty(txtGDefTabelaDados.Text))
+      if (String.IsNullOrEmpty(txtGDefTabelaDados.Text) || String.IsNullOrWhiteSpace(txtGDefTabelaDados.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Tabela Dados.");
       }
 
-      if (String.IsNullOrEmpty(txtGDefNomeColuna.Text))
+      if (String.IsNullOrEmpty(txtGDefNomeColuna.Text) || String.IsNullOrWhiteSpace(txtGDefNomeColuna.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Nome Coluna.");
       }
 
-      if (String.IsNullOrEmpty(txtGDefDescricao.Text))
+      if (String.IsNullOrEmpty(txtGDefDescricao.Text) || String.IsNullOrWhiteSpace(txtGDefDescricao.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Descrição.");
       }
-      /*
-      if (String.IsNullOrEmpty(txtGDefCodigoTabelaDinamica.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
-
-      if (String.IsNullOrEmpty(txtGDefCodigoFormula.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
       
-      if (String.IsNullOrEmpty(txtGdefValorDefault.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
-      */
-      if (String.IsNullOrEmpty(txtGDefCodigoColigadaTabelaDinamica.Text))
+      if (String.IsNullOrEmpty(txtGDefCodigoColigadaTabelaDinamica.Text) || String.IsNullOrWhiteSpace(txtGDefCodigoColigadaTabelaDinamica.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Codigo Coligada Tabela Dinâmica.");
       }
 
-      if (String.IsNullOrEmpty(txtGDefAplicacaoTabelaDinamica.Text))
+      if (String.IsNullOrEmpty(txtGDefAplicacaoTabelaDinamica.Text) || String.IsNullOrWhiteSpace(txtGDefAplicacaoTabelaDinamica.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Aplicação tabela Dinamica.");
       }
 
-      if (String.IsNullOrEmpty(txtGdefOrdem.Text))
+      if (String.IsNullOrEmpty(txtGdefOrdem.Text) || String.IsNullOrWhiteSpace(txtGdefOrdem.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Ordem.");
       }
-      /*     
-      if (String.IsNullOrEmpty(txtGdefCodigoColigadaFormula.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
-
-      if (String.IsNullOrEmpty(txtGDefCodApliFormula.Text))
-      {
-        erro = true;
-        builder.Append("");
-      }
-      */
-      if (String.IsNullOrEmpty(txtGDefTamanhoColuna.Text))
+    
+      if (String.IsNullOrEmpty(txtGDefTamanhoColuna.Text) || String.IsNullOrWhiteSpace(txtGDefTamanhoColuna.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo Tamanho Coluna.");
       }
 
+      #region validações excluidas
+      /*
+     if (String.IsNullOrEmpty(txtGDefCodigoTabelaDinamica.Text))
+     {
+       erro = true;
+       builder.Append("");
+     }
+
+     if (String.IsNullOrEmpty(txtGDefCodigoFormula.Text))
+     {
+       erro = true;
+       builder.Append("");
+     }
+
+     if (String.IsNullOrEmpty(txtGdefValorDefault.Text))
+     {
+       erro = true;
+       builder.Append("");
+     }
+            
+      if (String.IsNullOrEmpty(txtGdefCodigoColigadaFormula.Text))
+    {
+      erro = true;
+      builder.Append("");
+    }
+
+    if (String.IsNullOrEmpty(txtGDefCodApliFormula.Text))
+    {
+      erro = true;
+      builder.Append("");
+    }
+    
+     if (String.IsNullOrEmpty(txtGDefColigada.Text))
+     {
+       erro = true;
+       builder.Append("");
+     }
+     */
+      #endregion validações excluidas
+
       return erro;
+    }
+
+    private bool VerificarAplicacaoGCampos(string aplicacao)
+    {
+      return VerificarAplicacao(aplicacao);
+    }
+
+    private bool VerificarAplicacao(string aplicacao)
+    {
+      if (aplicacao.EndsWith(";"))
+      {
+        return true;
+      }
+      return false;
     }
 
     private void btGDefExcluir_Click(object sender, EventArgs e)
@@ -299,10 +320,10 @@ namespace UI
       GDefCompl gDefCompl = new GDefCompl();
 
       gDefCompl.TamanhoColuna = Convert.ToInt32(txtGDefTamanhoColuna.Text);
-      gDefCompl.Aplicacao = txtGdefAplicacao.Text;
-      gDefCompl.TabelaDados = txtGDefTabelaDados.Text;
-      gDefCompl.NomeColuna = txtGDefNomeColuna.Text;
-      gDefCompl.Descricao = txtGDefDescricao.Text;
+      gDefCompl.Aplicacao = txtGdefAplicacao.Text.ToUpper();
+      gDefCompl.TabelaDados = txtGDefTabelaDados.Text.ToUpper();
+      gDefCompl.NomeColuna = txtGDefNomeColuna.Text.ToUpper();
+      gDefCompl.Descricao = txtGDefDescricao.Text.ToUpper();
       gDefCompl.CodTabelaDinamica = txtGDefCodigoTabelaDinamica.Text;
       gDefCompl.Codformula = txtGDefCodigoFormula.Text;
       gDefCompl.ValorDefault = txtGdefValorDefault.Text;
@@ -313,7 +334,7 @@ namespace UI
       gDefCompl.PesquisaTabelaDinamicaPorCodigo = (chkBoxGDefPesqTabDinamCod.Checked) ? "T" : "F";
       gDefCompl.CodColigadaFormula = Convert.ToInt32(txtGdefCodigoColigadaFormula.Text);
       gDefCompl.CodigoAplicacaoFormula = txtGDefCodApliFormula.Text;
-      gDefCompl.TipoTexto = txtGDefTamanhoColuna.Text;
+      gDefCompl.TipoTexto = txtGDefTamanhoColuna.Text.ToUpper();
 
       return gDefCompl;
     }
@@ -351,11 +372,11 @@ namespace UI
         tabela = "GCAMPOS";
 
       gGCamposGDic.TabelaPrincipal = tabela;
-      gGCamposGDic.Tabela = txtTabela.Text;
-      gGCamposGDic.Coluna = txtColuna.Text;
-      gGCamposGDic.Descricao = txtDescricao.Text;
+      gGCamposGDic.Tabela = txtTabela.Text.ToUpper();
+      gGCamposGDic.Coluna = txtColuna.Text.ToUpper();
+      gGCamposGDic.Descricao = txtDescricao.Text.ToUpper();
       gGCamposGDic.Relatorio = chbRelatorio.Checked;
-      gGCamposGDic.Aplicacoes = txtAplicacao.Text;
+      gGCamposGDic.Aplicacoes = txtAplicacao.Text.ToUpper();
 
       return gGCamposGDic;
     }
@@ -363,45 +384,46 @@ namespace UI
     private bool ValidaCamposPreenchidosGCampos(out StringBuilder builder)
     {
       builder = new StringBuilder();
-      bool erro = true;
+      bool erro = false;
 
       if (chkGDic.Checked == false & chkGampos.Checked == false)
       {
-        erro = false;
+        erro = true;
         builder.AppendLine("Infome uma Tabela Princial do insert.");
       }
       if (chkGDic.Checked == true & chkGampos.Checked == true)
       {
-        erro = false;
+        erro = true;
         builder.AppendLine("Infome apenas uma Tabela Princial do insert.");
       }
-      if (String.IsNullOrEmpty(txtTabela.Text))
+      if (String.IsNullOrEmpty(txtTabela.Text) || String.IsNullOrWhiteSpace(txtTabela.Text))
       {
-        erro = false;
+        erro = true;
         builder.AppendLine("Informe o campo tabela");
       }
 
-      if (String.IsNullOrEmpty(txtColuna.Text))
+      if (String.IsNullOrEmpty(txtColuna.Text) || String.IsNullOrWhiteSpace(txtColuna.Text))
       {
-        erro = false;
+        erro = true;
         builder.AppendLine("Informe campo Coluna");
       }
 
-      if (String.IsNullOrEmpty(txtDescricao.Text))
+      if (String.IsNullOrEmpty(txtDescricao.Text)|| String.IsNullOrWhiteSpace(txtDescricao.Text))
       {
-        erro = false;
-        builder.AppendLine("Informe o Campo descrição");
+        erro = true;
+        builder.AppendLine("Informe o campo descrição");
       }
 
-      if (String.IsNullOrEmpty(txtAplicacao.Text))
+      if (String.IsNullOrEmpty(txtAplicacao.Text) || String.IsNullOrWhiteSpace(txtAplicacao.Text))
       {
-        erro = false;
+        erro = true;
         builder.AppendLine("Informe o campo aplicações");
 
       }
-      else
+      if (VerificarAplicacaoGCampos(txtAplicacao.Text))
       {
-        //http://www.macoratti.net/11/09/c_str1.htm
+        erro = true;
+        builder.AppendLine("O campo Aplicação. Deve ter o caracter ';' após cada letra, e  não deve ser finalizado com o mesmo caracter. \n\nEx: S;A;D  ");
       }
 
       return erro;
