@@ -26,14 +26,14 @@ namespace UI
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (ValidaCamposPreenchidosGCampos(out builder))
+        if (ValidaCamposPreenchidos(out builder))
         {
           throw new Exception(Convert.ToString(builder));
         }
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message,"Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
       gCamposGdic.Add(GetDadosGcamposGic());
@@ -41,7 +41,8 @@ namespace UI
       dgvGdicGcampos.AutoGenerateColumns = true;
       dgvGdicGcampos.DataSource = new BindingList<GCamposGDic>(gCamposGdic.ToList());
       dgvGdicGcampos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-      LimparGCamposGDic();
+      LimparGCamposGDic(1);
+      CongelarCampos();
     }
 
     private void btnGcamposGDicExcluir_Click(object sender, EventArgs e)
@@ -67,7 +68,22 @@ namespace UI
 
     private void btlGCamposGdicLimparCampos_Click(object sender, EventArgs e)
     {
-      LimparGCamposGDic();
+      if (dgvGdicGcampos.Rows.Count < 0)
+      {
+        LimparGCamposGDic();
+      }
+      else
+      {
+        LimparGCamposGDic(1);
+        CongelarCampos();
+      }
+    }
+
+    private void CongelarCampos()
+    {
+      rbGCampos.Enabled = false;
+      rbGDic.Enabled = false;
+      txtTabela.Enabled = false;
     }
 
     private void Salvar(SaveScript saveScript, bool sql)
@@ -84,18 +100,18 @@ namespace UI
         //verifica se salva sql ou oracle
         if (sql == true)
         {
-          path = ManipulaNomeArquivo(saveFileDialog1.FileName,sql);
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
           saveScript.SalvarScriptSQL(path, gDefCompl, gCamposGdic);
         }
         else
         {
-          path = ManipulaNomeArquivo(saveFileDialog1.FileName,sql);
-          saveScript.SalvarScriptOracle(path, gDefCompl,gCamposGdic);
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
+          saveScript.SalvarScriptOracle(path, gDefCompl, gCamposGdic);
         }
         Clipboard.SetText(path);
         MessageBox.Show($"Salvo com sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
         //Process.Start("explorer.exe", path);
-     
+
       }
 
     }
@@ -110,6 +126,10 @@ namespace UI
     {
       dgvGdicGcampos.DataSource = null;
       gCamposGdic.Clear();
+      rbGCampos.Enabled = true;
+      rbGDic.Enabled = true;
+      txtTabela.Enabled = true;
+      LimparGCamposGDic();
       // CarregaColunasDataGridGCamposGdic();
     }
 
@@ -141,7 +161,7 @@ namespace UI
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message,"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+        MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
       gDefCompl.Add(GetDadosGDefCompl());
@@ -156,7 +176,7 @@ namespace UI
     {
       builder = new StringBuilder();
       bool erro = false;
-          
+
       if (String.IsNullOrEmpty(txtGdefAplicacao.Text) || String.IsNullOrWhiteSpace(txtGdefAplicacao.Text))
       {
         erro = true;
@@ -180,7 +200,7 @@ namespace UI
         erro = true;
         builder.AppendLine("Informe o campo Descrição.");
       }
-      
+
       if (String.IsNullOrEmpty(txtGDefCodigoColigadaTabelaDinamica.Text) || String.IsNullOrWhiteSpace(txtGDefCodigoColigadaTabelaDinamica.Text))
       {
         erro = true;
@@ -198,7 +218,7 @@ namespace UI
         erro = true;
         builder.AppendLine("Informe o campo Ordem.");
       }
-    
+
       if (String.IsNullOrEmpty(txtGDefTamanhoColuna.Text) || String.IsNullOrWhiteSpace(txtGDefTamanhoColuna.Text))
       {
         erro = true;
@@ -341,24 +361,23 @@ namespace UI
 
     private void CarregaColunasDataGridGDefCompl()
     {
-      //dgvGDefCompl.AutoGenerateColumns = false;
-      dgvGdicGcampos.Columns.Add("Coligada", "Coligada");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Aplicação", "Aplicação");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Tabela De Dados", "Tabela De Dados");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Nome Coluna", "Nome Coluna");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Descrição", "Descrição");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Cod. Tab. Dinâmica", "Cod. Tab. Dinâmica");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Aplicação Tab. dinâmica", "Aplicação Tab. dinâmica");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Ordem", "Ordem");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Quebra Linha", "Quebra Linha");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Oracle", "Oracle");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Pesq. Tab. Dinâm. Por Código", "Pesq. Tab. Dinâm. Por Código");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Cod. Coligada Fórmula", "Cod. Coligada Formúla");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Cod. Aplicação Fórmula", "Cod. Aplicação Formúla");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Tipo Texto", "Tipo Texto");//Acrescenta colunas
+      //dgvGDefCompl.AutoGenerateColumnsHeaderText= false;
+      dgvGdicGcampos.Columns[0].HeaderText = "Coligada";//Acrescenta colunas
+      dgvGdicGcampos.Columns[1].HeaderText = "Aplicação";//Acrescenta colunas
+      dgvGdicGcampos.Columns[2].HeaderText = "Tabela De Dados";//Acrescenta colunas
+      dgvGdicGcampos.Columns[3].HeaderText = "Nome Coluna";//Acrescenta colunas
+      dgvGdicGcampos.Columns[4].HeaderText = "Descrição";//Acrescenta colunas
+      dgvGdicGcampos.Columns[5].HeaderText = "Cod. Tab. Dinâmica";//Acrescenta colunas
+      dgvGdicGcampos.Columns[6].HeaderText = "Aplicação Tab. dinâmica";//Acrescenta colunas
+      dgvGdicGcampos.Columns[7].HeaderText = "Ordem";//Acrescenta colunas
+      dgvGdicGcampos.Columns[8].HeaderText = "Quebra Linha";//Acrescenta colunas
+      dgvGdicGcampos.Columns[9].HeaderText = "Oracle";//Acrescenta colunas
+      dgvGdicGcampos.Columns[10].HeaderText = "Pesq. Tab. Dinâm. Por Código";//Acrescenta colunas
+      dgvGdicGcampos.Columns[11].HeaderText = "Cod. Coligada Fórmula";//Acrescenta colunas
+      dgvGdicGcampos.Columns[12].HeaderText = "Cod. Aplicação Fórmula";//Acrescenta colunas
+      dgvGdicGcampos.Columns[13].HeaderText = "Tipo Texto";//Acrescenta colunas
     }
     #endregion   Métodos privados GDEFCOMPL
-
 
     #region métodos privados GCampos
     private GCamposGDic GetDadosGcamposGic()
@@ -366,9 +385,9 @@ namespace UI
       var tabela = string.Empty;
 
       GCamposGDic gGCamposGDic = new GCamposGDic();
-      if (chkGDic.Checked == true)
+      if (rbGDic.Checked == true)
         tabela = "GDIC";
-      if (chkGDic.Checked == true)
+      if (rbGCampos.Checked == true)
         tabela = "GCAMPOS";
 
       gGCamposGDic.TabelaPrincipal = tabela;
@@ -381,17 +400,17 @@ namespace UI
       return gGCamposGDic;
     }
 
-    private bool ValidaCamposPreenchidosGCampos(out StringBuilder builder)
+    private bool ValidaCamposPreenchidos(out StringBuilder builder)
     {
       builder = new StringBuilder();
       bool erro = false;
 
-      if (chkGDic.Checked == false & chkGampos.Checked == false)
+      if (rbGDic.Checked == false & rbGCampos.Checked == false)
       {
         erro = true;
         builder.AppendLine("Infome uma Tabela Princial do insert.");
       }
-      if (chkGDic.Checked == true & chkGampos.Checked == true)
+      if (rbGCampos.Checked == false & rbGDic.Checked == false)
       {
         erro = true;
         builder.AppendLine("Infome apenas uma Tabela Princial do insert.");
@@ -408,7 +427,7 @@ namespace UI
         builder.AppendLine("Informe campo Coluna");
       }
 
-      if (String.IsNullOrEmpty(txtDescricao.Text)|| String.IsNullOrWhiteSpace(txtDescricao.Text))
+      if (String.IsNullOrEmpty(txtDescricao.Text) || String.IsNullOrWhiteSpace(txtDescricao.Text))
       {
         erro = true;
         builder.AppendLine("Informe o campo descrição");
@@ -429,16 +448,18 @@ namespace UI
       return erro;
     }
 
-    private void LimparGCamposGDic()
+    private void LimparGCamposGDic(int flag = 0)
     {
-      chkGDic.Checked = false;
-      chkGampos.Checked = false;
-      txtTabela.Text = String.Empty;
+      if (flag == 0)
+      {
+        rbGCampos.Checked = false;
+        rbGDic.Checked = false;
+        txtTabela.Text = String.Empty;
+      }
       txtColuna.Text = String.Empty;
       txtDescricao.Text = String.Empty;
       chbRelatorio.Checked = false;
       txtAplicacao.Text = String.Empty;
-     
     }
 
     #endregion métodos privados GCampos
@@ -501,6 +522,11 @@ namespace UI
         builder.AppendLine("Informe qual script sera gerado o script");
       }
       return erro;
+    }
+
+    private void btnLimparNomeProjeto_Click(object sender, EventArgs e)
+    {
+      txtNomeProjeto.Text = String.Empty;
     }
   }
 }

@@ -69,8 +69,8 @@
       this.dgvGdicGcampos = new System.Windows.Forms.DataGridView();
       this.panel1 = new System.Windows.Forms.Panel();
       this.gbTabela = new System.Windows.Forms.GroupBox();
-      this.chkGDic = new System.Windows.Forms.CheckBox();
-      this.chkGampos = new System.Windows.Forms.CheckBox();
+      this.rbGCampos = new System.Windows.Forms.RadioButton();
+      this.rbGDic = new System.Windows.Forms.RadioButton();
       this.btnGcamposGDicExcluir = new System.Windows.Forms.Button();
       this.btnExcluirDadosGrid = new System.Windows.Forms.Button();
       this.btnInserirDadosGCamposGdic = new System.Windows.Forms.Button();
@@ -91,6 +91,7 @@
       this.btnSalvarScript = new System.Windows.Forms.Button();
       this.txtNomeProjeto = new System.Windows.Forms.TextBox();
       this.lblProjeto = new System.Windows.Forms.Label();
+      this.btnLimparNomeProjeto = new System.Windows.Forms.Button();
       this.txtNoeProjeto.SuspendLayout();
       this.tabGDefCompl.SuspendLayout();
       this.txtValorDefault.SuspendLayout();
@@ -486,34 +487,36 @@
       // 
       // gbTabela
       // 
-      this.gbTabela.Controls.Add(this.chkGDic);
-      this.gbTabela.Controls.Add(this.chkGampos);
+      this.gbTabela.Controls.Add(this.rbGCampos);
+      this.gbTabela.Controls.Add(this.rbGDic);
       this.gbTabela.Location = new System.Drawing.Point(5, 11);
       this.gbTabela.Name = "gbTabela";
-      this.gbTabela.Size = new System.Drawing.Size(233, 43);
+      this.gbTabela.Size = new System.Drawing.Size(163, 36);
       this.gbTabela.TabIndex = 19;
       this.gbTabela.TabStop = false;
       this.gbTabela.Text = "Tabela";
       // 
-      // chkGDic
+      // rbGCampos
       // 
-      this.chkGDic.AutoSize = true;
-      this.chkGDic.Location = new System.Drawing.Point(16, 19);
-      this.chkGDic.Name = "chkGDic";
-      this.chkGDic.Size = new System.Drawing.Size(52, 17);
-      this.chkGDic.TabIndex = 17;
-      this.chkGDic.Text = "GDIC";
-      this.chkGDic.UseVisualStyleBackColor = true;
+      this.rbGCampos.AutoSize = true;
+      this.rbGCampos.Location = new System.Drawing.Point(75, 13);
+      this.rbGCampos.Name = "rbGCampos";
+      this.rbGCampos.Size = new System.Drawing.Size(78, 17);
+      this.rbGCampos.TabIndex = 13;
+      this.rbGCampos.TabStop = true;
+      this.rbGCampos.Text = "GCAMPOS";
+      this.rbGCampos.UseVisualStyleBackColor = true;
       // 
-      // chkGampos
+      // rbGDic
       // 
-      this.chkGampos.AutoSize = true;
-      this.chkGampos.Location = new System.Drawing.Point(85, 19);
-      this.chkGampos.Name = "chkGampos";
-      this.chkGampos.Size = new System.Drawing.Size(79, 17);
-      this.chkGampos.TabIndex = 18;
-      this.chkGampos.Text = "GCAMPOS";
-      this.chkGampos.UseVisualStyleBackColor = true;
+      this.rbGDic.AutoSize = true;
+      this.rbGDic.Location = new System.Drawing.Point(6, 13);
+      this.rbGDic.Name = "rbGDic";
+      this.rbGDic.Size = new System.Drawing.Size(51, 17);
+      this.rbGDic.TabIndex = 12;
+      this.rbGDic.TabStop = true;
+      this.rbGDic.Text = "GDIC";
+      this.rbGDic.UseVisualStyleBackColor = true;
       // 
       // btnGcamposGDicExcluir
       // 
@@ -634,7 +637,7 @@
       // 
       this.gbBancoDados.Controls.Add(this.chbSql);
       this.gbBancoDados.Controls.Add(this.chbOracle);
-      this.gbBancoDados.Location = new System.Drawing.Point(311, 12);
+      this.gbBancoDados.Location = new System.Drawing.Point(481, 12);
       this.gbBancoDados.Name = "gbBancoDados";
       this.gbBancoDados.Size = new System.Drawing.Size(138, 42);
       this.gbBancoDados.TabIndex = 15;
@@ -698,11 +701,22 @@
       this.lblProjeto.TabIndex = 20;
       this.lblProjeto.Text = "Projeto";
       // 
-      // Script
+      // btnLimparNomeProjeto
+      // 
+      this.btnLimparNomeProjeto.Location = new System.Drawing.Point(293, 25);
+      this.btnLimparNomeProjeto.Name = "btnLimparNomeProjeto";
+      this.btnLimparNomeProjeto.Size = new System.Drawing.Size(135, 23);
+      this.btnLimparNomeProjeto.TabIndex = 21;
+      this.btnLimparNomeProjeto.Text = "Limpar Nome Projeto";
+      this.btnLimparNomeProjeto.UseVisualStyleBackColor = true;
+      this.btnLimparNomeProjeto.Click += new System.EventHandler(this.btnLimparNomeProjeto_Click);
+      // 
+      // GeraScript
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1045, 450);
+      this.Controls.Add(this.btnLimparNomeProjeto);
       this.Controls.Add(this.lblProjeto);
       this.Controls.Add(this.txtNomeProjeto);
       this.Controls.Add(this.btnSair);
@@ -710,7 +724,7 @@
       this.Controls.Add(this.gbBancoDados);
       this.Controls.Add(this.txtNoeProjeto);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.Name = "Script";
+      this.Name = "GeraScript";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Script";
       this.txtNoeProjeto.ResumeLayout(false);
@@ -739,8 +753,6 @@
     private System.Windows.Forms.DataGridView dgvGdicGcampos;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.GroupBox gbTabela;
-    private System.Windows.Forms.CheckBox chkGDic;
-    private System.Windows.Forms.CheckBox chkGampos;
     private System.Windows.Forms.Button btnGcamposGDicExcluir;
     private System.Windows.Forms.Button btnExcluirDadosGrid;
     private System.Windows.Forms.Button btnInserirDadosGCamposGdic;
@@ -796,5 +808,8 @@
     private System.Windows.Forms.Button btnSalvarScript;
     private System.Windows.Forms.TextBox txtNomeProjeto;
     private System.Windows.Forms.Label lblProjeto;
+    private System.Windows.Forms.RadioButton rbGCampos;
+    private System.Windows.Forms.RadioButton rbGDic;
+    private System.Windows.Forms.Button btnLimparNomeProjeto;
   }
 }
