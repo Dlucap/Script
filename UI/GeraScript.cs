@@ -2,6 +2,8 @@
 using DTO;
 using System;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -57,13 +59,33 @@ namespace UI
         int indice = dgvGdicGcampos.CurrentRow.Index;
         if (dgvGdicGcampos.Rows[indice].Cells[indice].Value.ToString() != null)
         {
-          if (indice != 0)
-          {
-            dgvGdicGcampos.Rows.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
-            gCamposGdic.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
-          }
+          dgvGdicGcampos.Rows.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
+          gCamposGdic.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
+        }
+        if (VerificaGridView(dgvGdicGcampos))
+        {
+          DescongelaCampos();
         }
       }
+    }
+
+    private void DescongelaCampos()
+    {
+      rbGCampos.Enabled = true;
+      rbGDic.Enabled = true;
+      rbGDic.Checked = false;
+      rbGCampos.Checked = false;
+      txtTabela.Enabled = true;
+      txtTabela.Text = String.Empty;
+    }
+
+    private bool VerificaGridView(DataGridView dgv)
+    {
+      if (dgv.CurrentRow == null)
+      {
+        return true;
+      }
+      return false;
     }
 
     private void btlGCamposGdicLimparCampos_Click(object sender, EventArgs e)
@@ -118,8 +140,8 @@ namespace UI
 
     private string ManipulaNomeArquivo(string fileName, bool sqlOracle)
     {
-      var banco = (sqlOracle) ? "_MSSQL.sql":"_ORACLE.sql";
-      return fileName.Replace(".sql",banco);
+      var banco = (sqlOracle) ? "_MSSQL.sql" : "_ORACLE.sql";
+      return fileName.Replace(".sql", banco);
     }
 
     private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
@@ -294,15 +316,11 @@ namespace UI
         int indice = dgvGDefCompl.CurrentRow.Index;
         if (dgvGDefCompl.Rows[indice].Cells[indice].Value.ToString() != null)
         {
-          if (indice != 0)
-          {
-            dgvGDefCompl.Rows.RemoveAt(dgvGDefCompl.Rows[indice].Index);
-            gDefCompl.RemoveAt(dgvGDefCompl.Rows[indice].Index);
-          }
+          dgvGDefCompl.Rows.RemoveAt(dgvGDefCompl.Rows[indice].Index);
+          gDefCompl.RemoveAt(dgvGDefCompl.Rows[indice].Index);
         }
       }
     }
-
     private void btGDefLimpar_Click(object sender, EventArgs e)
     {
       LimparGDefCompl();
@@ -527,6 +545,42 @@ namespace UI
     private void btnLimparNomeProjeto_Click(object sender, EventArgs e)
     {
       txtNomeProjeto.Text = String.Empty;
+    }
+
+    private void gDICToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      OpenFileDialog fileDialog = new OpenFileDialog();
+      fileDialog.Filter = "sql files (*.sql)|*.sql|All files (*.*)|*.*";
+      fileDialog.Title = "Abrir - Script GDIC/GCAMPOS";
+      fileDialog.ShowDialog();
+    }
+
+    private void gDEFCOMPLToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      OpenFileDialog fileDialog = new OpenFileDialog();
+      fileDialog.Filter = "sql files (*.sql)|*.sql|All files (*.*)|*.*";
+      fileDialog.Title = "Abrir - Script GDEFCOMPL";
+      if (fileDialog.ShowDialog() == DialogResult.OK)
+      {
+        var fileContent = string.Empty;
+        var filePath = string.Empty;
+
+        filePath = fileDialog.FileName;
+
+        //Read the contents of the file into a stream
+        var fileStream = fileDialog.OpenFile();
+
+        using (StreamReader reader = new StreamReader(fileStream))
+        {
+          StringBuilder sb = new StringBuilder();
+          while ((fileContent = reader.ReadLine()) != null)
+          {
+            sb.Append(fileContent);
+          }
+
+        }
+      }
+
     }
   }
 }

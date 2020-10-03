@@ -92,6 +92,11 @@
       this.txtNomeProjeto = new System.Windows.Forms.TextBox();
       this.lblProjeto = new System.Windows.Forms.Label();
       this.btnLimparNomeProjeto = new System.Windows.Forms.Button();
+      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.importarArquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.gDICToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.gDEFCOMPLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.txtNoeProjeto.SuspendLayout();
       this.tabGDefCompl.SuspendLayout();
       this.txtValorDefault.SuspendLayout();
@@ -101,13 +106,14 @@
       this.panel1.SuspendLayout();
       this.gbTabela.SuspendLayout();
       this.gbBancoDados.SuspendLayout();
+      this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // txtNoeProjeto
       // 
       this.txtNoeProjeto.Controls.Add(this.tabGDefCompl);
       this.txtNoeProjeto.Controls.Add(this.tabGCamposGDic);
-      this.txtNoeProjeto.Location = new System.Drawing.Point(1, 53);
+      this.txtNoeProjeto.Location = new System.Drawing.Point(1, 70);
       this.txtNoeProjeto.Name = "txtNoeProjeto";
       this.txtNoeProjeto.SelectedIndex = 0;
       this.txtNoeProjeto.Size = new System.Drawing.Size(1045, 367);
@@ -128,6 +134,7 @@
       // 
       // txtValorDefault
       // 
+      this.txtValorDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.txtValorDefault.Controls.Add(this.txtGDefTamanhoColuna);
       this.txtValorDefault.Controls.Add(this.lblTamanhoColuna);
       this.txtValorDefault.Controls.Add(this.btnGDefExcluirDadosGrid);
@@ -162,7 +169,7 @@
       this.txtValorDefault.Controls.Add(this.txtGdefValorDefault);
       this.txtValorDefault.Location = new System.Drawing.Point(619, 2);
       this.txtValorDefault.Name = "txtValorDefault";
-      this.txtValorDefault.Size = new System.Drawing.Size(407, 329);
+      this.txtValorDefault.Size = new System.Drawing.Size(414, 329);
       this.txtValorDefault.TabIndex = 1;
       // 
       // txtGDefTamanhoColuna
@@ -482,7 +489,7 @@
       this.panel1.Controls.Add(this.txtDescricao);
       this.panel1.Location = new System.Drawing.Point(677, 2);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(353, 296);
+      this.panel1.Size = new System.Drawing.Size(356, 296);
       this.panel1.TabIndex = 7;
       // 
       // gbTabela
@@ -520,7 +527,7 @@
       // 
       // btnGcamposGDicExcluir
       // 
-      this.btnGcamposGDicExcluir.Location = new System.Drawing.Point(255, 179);
+      this.btnGcamposGDicExcluir.Location = new System.Drawing.Point(262, 179);
       this.btnGcamposGDicExcluir.Name = "btnGcamposGDicExcluir";
       this.btnGcamposGDicExcluir.Size = new System.Drawing.Size(75, 23);
       this.btnGcamposGDicExcluir.TabIndex = 16;
@@ -540,7 +547,7 @@
       // 
       // btnInserirDadosGCamposGdic
       // 
-      this.btnInserirDadosGCamposGdic.Location = new System.Drawing.Point(255, 129);
+      this.btnInserirDadosGCamposGdic.Location = new System.Drawing.Point(262, 132);
       this.btnInserirDadosGCamposGdic.Name = "btnInserirDadosGCamposGdic";
       this.btnInserirDadosGCamposGdic.Size = new System.Drawing.Size(75, 23);
       this.btnInserirDadosGCamposGdic.TabIndex = 12;
@@ -574,7 +581,7 @@
       // 
       // btlGCamposGdicLimparCampos
       // 
-      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(255, 228);
+      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(262, 229);
       this.btlGCamposGdicLimparCampos.Name = "btlGCamposGdicLimparCampos";
       this.btlGCamposGdicLimparCampos.Size = new System.Drawing.Size(75, 23);
       this.btlGCamposGdicLimparCampos.TabIndex = 9;
@@ -637,7 +644,7 @@
       // 
       this.gbBancoDados.Controls.Add(this.chbSql);
       this.gbBancoDados.Controls.Add(this.chbOracle);
-      this.gbBancoDados.Location = new System.Drawing.Point(481, 12);
+      this.gbBancoDados.Location = new System.Drawing.Point(481, 25);
       this.gbBancoDados.Name = "gbBancoDados";
       this.gbBancoDados.Size = new System.Drawing.Size(138, 42);
       this.gbBancoDados.TabIndex = 15;
@@ -666,7 +673,7 @@
       // 
       // btnSair
       // 
-      this.btnSair.Location = new System.Drawing.Point(967, 422);
+      this.btnSair.Location = new System.Drawing.Point(967, 446);
       this.btnSair.Name = "btnSair";
       this.btnSair.Size = new System.Drawing.Size(75, 23);
       this.btnSair.TabIndex = 16;
@@ -676,7 +683,7 @@
       // 
       // btnSalvarScript
       // 
-      this.btnSalvarScript.Location = new System.Drawing.Point(883, 422);
+      this.btnSalvarScript.Location = new System.Drawing.Point(883, 446);
       this.btnSalvarScript.Name = "btnSalvarScript";
       this.btnSalvarScript.Size = new System.Drawing.Size(75, 23);
       this.btnSalvarScript.TabIndex = 15;
@@ -687,7 +694,7 @@
       // txtNomeProjeto
       // 
       this.txtNomeProjeto.ForeColor = System.Drawing.Color.Black;
-      this.txtNomeProjeto.Location = new System.Drawing.Point(55, 27);
+      this.txtNomeProjeto.Location = new System.Drawing.Point(55, 40);
       this.txtNomeProjeto.Name = "txtNomeProjeto";
       this.txtNomeProjeto.Size = new System.Drawing.Size(232, 20);
       this.txtNomeProjeto.TabIndex = 20;
@@ -695,7 +702,7 @@
       // lblProjeto
       // 
       this.lblProjeto.AutoSize = true;
-      this.lblProjeto.Location = new System.Drawing.Point(9, 30);
+      this.lblProjeto.Location = new System.Drawing.Point(9, 43);
       this.lblProjeto.Name = "lblProjeto";
       this.lblProjeto.Size = new System.Drawing.Size(40, 13);
       this.lblProjeto.TabIndex = 20;
@@ -703,7 +710,7 @@
       // 
       // btnLimparNomeProjeto
       // 
-      this.btnLimparNomeProjeto.Location = new System.Drawing.Point(293, 25);
+      this.btnLimparNomeProjeto.Location = new System.Drawing.Point(293, 38);
       this.btnLimparNomeProjeto.Name = "btnLimparNomeProjeto";
       this.btnLimparNomeProjeto.Size = new System.Drawing.Size(135, 23);
       this.btnLimparNomeProjeto.TabIndex = 21;
@@ -711,11 +718,53 @@
       this.btnLimparNomeProjeto.UseVisualStyleBackColor = true;
       this.btnLimparNomeProjeto.Click += new System.EventHandler(this.btnLimparNomeProjeto_Click);
       // 
+      // menuStrip1
+      // 
+      this.menuStrip1.BackColor = System.Drawing.SystemColors.Menu;
+      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importarArquivoToolStripMenuItem,
+            this.ajudaToolStripMenuItem});
+      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+      this.menuStrip1.Name = "menuStrip1";
+      this.menuStrip1.Size = new System.Drawing.Size(1045, 24);
+      this.menuStrip1.TabIndex = 22;
+      this.menuStrip1.Text = "menuStrip1";
+      // 
+      // importarArquivoToolStripMenuItem
+      // 
+      this.importarArquivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gDICToolStripMenuItem,
+            this.gDEFCOMPLToolStripMenuItem});
+      this.importarArquivoToolStripMenuItem.Name = "importarArquivoToolStripMenuItem";
+      this.importarArquivoToolStripMenuItem.Size = new System.Drawing.Size(110, 20);
+      this.importarArquivoToolStripMenuItem.Text = "Importar Arquivo";
+      // 
+      // gDICToolStripMenuItem
+      // 
+      this.gDICToolStripMenuItem.Name = "gDICToolStripMenuItem";
+      this.gDICToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+      this.gDICToolStripMenuItem.Text = "GDIC / GCAMPOS";
+      this.gDICToolStripMenuItem.Click += new System.EventHandler(this.gDICToolStripMenuItem_Click);
+      // 
+      // gDEFCOMPLToolStripMenuItem
+      // 
+      this.gDEFCOMPLToolStripMenuItem.Name = "gDEFCOMPLToolStripMenuItem";
+      this.gDEFCOMPLToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+      this.gDEFCOMPLToolStripMenuItem.Text = "GDEFCOMPL";
+      this.gDEFCOMPLToolStripMenuItem.Click += new System.EventHandler(this.gDEFCOMPLToolStripMenuItem_Click);
+      // 
+      // ajudaToolStripMenuItem
+      // 
+      this.ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
+      this.ajudaToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+      this.ajudaToolStripMenuItem.Text = "Ajuda";
+      this.ajudaToolStripMenuItem.Click += new System.EventHandler(this.ajudaToolStripMenuItem_Click);
+      // 
       // GeraScript
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1045, 450);
+      this.ClientSize = new System.Drawing.Size(1045, 476);
       this.Controls.Add(this.btnLimparNomeProjeto);
       this.Controls.Add(this.lblProjeto);
       this.Controls.Add(this.txtNomeProjeto);
@@ -723,7 +772,9 @@
       this.Controls.Add(this.btnSalvarScript);
       this.Controls.Add(this.gbBancoDados);
       this.Controls.Add(this.txtNoeProjeto);
+      this.Controls.Add(this.menuStrip1);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.MainMenuStrip = this.menuStrip1;
       this.Name = "GeraScript";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Script";
@@ -741,6 +792,8 @@
       this.gbTabela.PerformLayout();
       this.gbBancoDados.ResumeLayout(false);
       this.gbBancoDados.PerformLayout();
+      this.menuStrip1.ResumeLayout(false);
+      this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -811,5 +864,10 @@
     private System.Windows.Forms.RadioButton rbGCampos;
     private System.Windows.Forms.RadioButton rbGDic;
     private System.Windows.Forms.Button btnLimparNomeProjeto;
+    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem importarArquivoToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem gDICToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem gDEFCOMPLToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem ajudaToolStripMenuItem;
   }
 }
