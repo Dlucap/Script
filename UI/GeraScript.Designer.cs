@@ -758,7 +758,6 @@
       this.ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
       this.ajudaToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
       this.ajudaToolStripMenuItem.Text = "Ajuda";
-      this.ajudaToolStripMenuItem.Click += new System.EventHandler(this.ajudaToolStripMenuItem_Click);
       // 
       // GeraScript
       // 
