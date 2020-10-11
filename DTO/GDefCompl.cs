@@ -25,6 +25,8 @@ namespace DTO
     public string CodigoAplicacaoFormula { get; set; }
     public string TipoTexto { get; set; }
     public int TamanhoColuna { get; set; }
+    public string RecCreatedBy { get; set; }
+    public DateTime RecCreatedOn { get; set; }
 
   }
 }

@@ -49,10 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OracleGCamposGDic.cs" />
+    <Compile Include="Oracle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveScript.cs" />
-    <Compile Include="SqlGCamposGDic.cs" />
+    <Compile Include="Sql.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

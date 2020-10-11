@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DTO;
+using GeraScript;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -13,22 +14,31 @@ namespace UI
 {
   public partial class GeraScript : Form
   {
-    CollectionsGCamposGDic gCamposGdic = new CollectionsGCamposGDic();
+    #region Objetos GDIC e GDEFCOMPL
+
+    CollectionsGDic gdic = new CollectionsGDic();
     CollectionsGDefCompl gDefCompl = new CollectionsGDefCompl();
 
+    #endregion Objetos GDIC e GDEFCOMPL
+
+    #region Construtor
     public GeraScript()
     {
       InitializeComponent();
-      //CarregaColunasDataGridGCamposGdic();
     }
 
-    #region GCamposGdic
-    private void btnInserirDados_Click(object sender, EventArgs e)
+    #endregion Construtor
+
+    #region GDIC Métodos e eventos
+
+    #region Eventos GDIC
+
+    private void btnInserirDadosGDic_Click(object sender, EventArgs e)
     {
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (ValidaCamposPreenchidos(out builder))
+        if (ValidaCamposPreenchidosGDic(out builder))
         {
           throw new Exception(Convert.ToString(builder));
         }
@@ -38,45 +48,93 @@ namespace UI
         MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
-      gCamposGdic.Add(GetDadosGcamposGic());
+      gdic.Add(GetDadosGDic());
 
-      dgvGdicGcampos.AutoGenerateColumns = true;
-      dgvGdicGcampos.DataSource = new BindingList<GCamposGDic>(gCamposGdic.ToList());
-      dgvGdicGcampos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-      LimparGCamposGDic(1);
+      //CarregaColunasDataGridGDic();
+      AlimentaGridViewGDic(gdic);
+      LimparGDic(1);
       CongelarCampos();
     }
 
     private void btnGcamposGDicExcluir_Click(object sender, EventArgs e)
     {
-      if (dgvGdicGcampos.SelectedRows.Count == 0)
+      if (dgvGdic.SelectedRows.Count == 0)
       {
         MessageBox.Show("Nenhum registro selecionado", "Atenção");
         return;
       }
       else
       {
-        int indice = dgvGdicGcampos.CurrentRow.Index;
-        if (dgvGdicGcampos.Rows[indice].Cells[indice].Value.ToString() != null)
+        int indice = dgvGdic.CurrentRow.Index;
+        if (dgvGdic.Rows[indice].Cells[indice].Value.ToString() != null)
         {
-          dgvGdicGcampos.Rows.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
-          gCamposGdic.RemoveAt(dgvGdicGcampos.Rows[indice].Index);
+          dgvGdic.Rows.RemoveAt(dgvGdic.Rows[indice].Index);
+          gdic.RemoveAt(dgvGdic.Rows[indice].Index);
         }
-        if (VerificaGridView(dgvGdicGcampos))
+        if (VerificaGridView(dgvGdic))
         {
           DescongelaCampos();
+          LimparGDic();
         }
       }
     }
 
+    private void btlGCamposGdicLimparCampos_Click(object sender, EventArgs e)
+    {
+      if (dgvGdic.Rows.Count < 0)
+      {
+        LimparGDic();
+      }
+      else
+      {
+        LimparGDic(1);
+        CongelarCampos();
+      }
+    }
+
+    private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
+    {
+      dgvGdic.DataSource = null;
+      gdic.Clear();
+      txtGdicTabela.Enabled = true;
+      LimparGDic();
+      // CarregaColunasDataGridGCamposGdic();
+    }
+
+    private void btnVisualizarScriptGDic_Click(object sender, EventArgs e)
+    {
+      StringBuilder teste = new StringBuilder();
+  
+      FormVisualizar formVisualizar = new FormVisualizar(teste);
+      formVisualizar.Show();
+    }
+
+    #endregion Eventos GDIC
+
+    #region Métodos GDIC
+
+    private void CongelarCampos()
+    {
+      txtGdicTabela.Enabled = false;
+    }
+
+    private string ManipulaNomeArquivo(string fileName, bool sqlOracle)
+    {
+      var banco = (sqlOracle) ? "_MSSQL.sql" : "_ORACLE.sql";
+      return fileName.Replace(".sql", banco);
+    }
+
     private void DescongelaCampos()
     {
-      rbGCampos.Enabled = true;
-      rbGDic.Enabled = true;
-      rbGDic.Checked = false;
-      rbGCampos.Checked = false;
-      txtTabela.Enabled = true;
-      txtTabela.Text = String.Empty;
+      txtGdicTabela.Enabled = true;
+      txtGdicTabela.Text = String.Empty;
+    }
+
+    private void AlimentaGridViewGDic(CollectionsGDic gdic)
+    {
+      dgvGdic.AutoGenerateColumns = true;
+      dgvGdic.DataSource = new BindingList<GDic>(gdic.ToList());
+      dgvGdic.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
     }
 
     private bool VerificaGridView(DataGridView dgv)
@@ -88,90 +146,102 @@ namespace UI
       return false;
     }
 
-    private void btlGCamposGdicLimparCampos_Click(object sender, EventArgs e)
+    private void CarregaColunasDataGridGDic()
     {
-      if (dgvGdicGcampos.Rows.Count < 0)
+      dgvGdic.AutoGenerateColumns = true;
+      dgvGdic.Columns.Add("tabela", "Tabela");//Acrescenta colunas
+      dgvGdic.Columns.Add("coluna", "Coluna");//Acrescenta colunas
+      dgvGdic.Columns.Add("descricao", "Descrição");//Acrescenta colunas
+      dgvGdic.Columns.Add("relatório", "Relatório");//Acrescenta colunas
+      dgvGdic.Columns.Add("aplicacooes", "Aplicações");//Acrescenta colunas
+      dgvGdic.Columns.Add("consultaTexo", "Consulta Texo");//Acrescenta colunas
+      //dgvGdic.Columns.Add("Action", "Action");//Acrescenta colunas
+      //dgvGdic.Columns.Add("ActionKeyField", "ActionKeyField");//Acrescenta colunas
+      //dgvGdic.Columns.Add("ActionSearchField", "ActionSearchField");//Acrescenta colunas
+      //dgvGdic.Columns.Add("SecColName", "SecColName");//Acrescenta colunas
+      //dgvGdic.Columns.Add("SecColigadaColumn", "SecColigadaColumn");//Acrescenta colunas
+      //dgvGdic.Columns.Add("Status", "Status");//Acrescenta colunas
+      //dgvGdic.Columns.Add("Usuario Criação", "Usuario Criação");//Acrescenta colunas
+
+    }
+
+    private void LimparGDic(int flag = 0)
+    {
+      if (flag == 0)
       {
-        LimparGCamposGDic();
+        txtGdicTabela.Text = String.Empty;
       }
-      else
+      txtGdicColuna.Text = String.Empty;
+      txtGdicDescricao.Text = String.Empty;
+      chbGdicRelatorio.Checked = false;
+      txtGdicAplicacao.Text = String.Empty;
+      //txtGDicAction.Text = String.Empty;
+      //txtGdicActionSearchField.Text = String.Empty;
+      //txtGdicActionKeyField.Text = String.Empty;
+      //txtGdicColiColuSeguranca.Text =  String.Empty;
+      //txtGdicColunaSeguranca.Text = String.Empty;
+      //txtGdicUsuarioScript.Text = String.Empty;
+      //chbGdicStatus.Checked = false;
+      //chbGdicConsultaTexto.Checked = false;
+    }
+
+    private GDic GetDadosGDic()
+    {
+      var tabela = string.Empty;
+      Utils utils = new Utils();
+      GDic gDic = new GDic();
+
+      gDic.Tabela = txtGdicTabela.Text.ToUpper();
+      gDic.Coluna = txtGdicColuna.Text.ToUpper();
+      gDic.Descricao = txtGdicDescricao.Text.ToUpper();
+      gDic.Relatorio = chbGdicRelatorio.Checked;
+      gDic.Aplicacoes = txtGdicAplicacao.Text.ToUpper();
+      //gDic.ConsultaTexo = chbGdicConsultaTexto.Checked;
+      //gDic.Action = utils.VerificaStringVazia(txtGDicAction.Text);
+      //gDic.ActionKeyField = utils.VerificaStringVazia(txtGdicActionKeyField.Text);
+      //gDic.ActionSearchField = utils.VerificaStringVazia(txtGdicActionSearchField.Text);
+      //gDic.SecColName = utils.VerificaStringVazia(txtGdicColunaSeguranca.Text);
+      //gDic.SecColigadaColumn = utils.VerificaStringVazia(txtGdicColiColuSeguranca.Text);
+      //gDic.Status = chbGdicStatus.Checked;
+      //gDic.RecCreatedBy = utils.VerificaStringVazia(txtGdicUsuarioScript.Text);
+
+      return gDic;
+    }
+
+    private bool ValidaCamposPreenchidosGDic(out StringBuilder builder)
+    {
+      builder = new StringBuilder();
+      bool erro = false;
+
+      if (String.IsNullOrEmpty(txtGdicTabela.Text) || String.IsNullOrWhiteSpace(txtGdicTabela.Text))
       {
-        LimparGCamposGDic(1);
-        CongelarCampos();
+        erro = true;
+        builder.AppendLine("Informe o campo tabela");
       }
-    }
 
-    private void CongelarCampos()
-    {
-      rbGCampos.Enabled = false;
-      rbGDic.Enabled = false;
-      txtTabela.Enabled = false;
-    }
-
-    private void Salvar(SaveScript saveScript, bool sql)
-    {
-      SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-      saveFileDialog1.Filter = "sql files (*.sql)|*.sql|All files (*.*)|*.*";
-      saveFileDialog1.FilterIndex = 1;
-      saveFileDialog1.Title = "Salvar - Script";
-      saveFileDialog1.RestoreDirectory = true;
-
-      if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+      if (String.IsNullOrEmpty(txtGdicColuna.Text) || String.IsNullOrWhiteSpace(txtGdicColuna.Text))
       {
-        String path = String.Empty;
-        //verifica se salva sql ou oracle
-        if (sql == true)
-        {
-          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
-          saveScript.SalvarScriptSQL(path, gDefCompl, gCamposGdic);
-        }
-        else
-        {
-          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
-          saveScript.SalvarScriptOracle(path, gDefCompl, gCamposGdic);
-        }
-        Clipboard.SetText(path);
-        MessageBox.Show($"Salvo com sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
-        //Process.Start("explorer.exe", path);
-
+        erro = true;
+        builder.AppendLine("Informe campo Coluna");
+      }
+      if (VerificarAplicacaoGDic(txtGdicAplicacao.Text))
+      {
+        erro = true;
+        builder.AppendLine("O campo Aplicação. Deve ter o caracter ';' após cada letra, e  não deve ser finalizado com o mesmo caracter. \n\nEx: S;A;D  ");
       }
 
+      return erro;
     }
 
-    private string ManipulaNomeArquivo(string fileName, bool sqlOracle)
-    {
-      var banco = (sqlOracle) ? "_MSSQL.sql" : "_ORACLE.sql";
-      return fileName.Replace(".sql", banco);
-    }
+    #endregion Métodos GDIC
 
-    private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
-    {
-      dgvGdicGcampos.DataSource = null;
-      gCamposGdic.Clear();
-      rbGCampos.Enabled = true;
-      rbGDic.Enabled = true;
-      txtTabela.Enabled = true;
-      LimparGCamposGDic();
-      // CarregaColunasDataGridGCamposGdic();
-    }
+    #endregion Gdic Métodos e eventos
 
-    private void CarregaColunasDataGridGCamposGdic()
-    {
-      //dgvGDefCompl.AutoGenerateColumns = false;
-      dgvGdicGcampos.Columns.Add("Tabela Principal", "Tabela Principal");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Tabela", "Tabela");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Coluna", "Coluna");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Descrição", "Descrição");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Relatório", "Relatório");//Acrescenta colunas
-      dgvGdicGcampos.Columns.Add("Aplicações", "Aplicações");//Acrescenta colunas
-      //dgvGdicGcampos.Columns.Add("Sql", "Sql");//Acrescenta colunas
-      //dgvGdicGcampos.Columns.Add("Oracle", "Oracle");//Acrescenta colunas
-    }
+    #region GDEFCOMPEL Métodos e eventos
 
-    #endregion GCamposGdic
+    #region Eventos GDEFCOMPEL
 
-    #region GDefCompel
-    private void btGDefIncluir_Click(object sender, EventArgs e)
+    private void btGDefIncluirGDefCompl_Click(object sender, EventArgs e)
     {
       try
       {
@@ -193,6 +263,44 @@ namespace UI
       dgvGDefCompl.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
       //LimparGDefCompl();
     }
+
+    private void btGDefExcluir_Click(object sender, EventArgs e)
+    {
+      if (dgvGDefCompl.SelectedRows.Count == 0)
+      {
+        MessageBox.Show("Nenhum registro selecionado", "Atenção");
+        return;
+      }
+      else
+      {
+        int indice = dgvGDefCompl.CurrentRow.Index;
+        if (dgvGDefCompl.Rows[indice].Cells[indice].Value.ToString() != null)
+        {
+          dgvGDefCompl.Rows.RemoveAt(dgvGDefCompl.Rows[indice].Index);
+          gDefCompl.RemoveAt(dgvGDefCompl.Rows[indice].Index);
+        }
+      }
+    }
+
+    private void btGDefLimpar_Click(object sender, EventArgs e)
+    {
+      LimparGDefCompl();
+    }
+
+    private void btnGDefExcluirDadosGrid_Click(object sender, EventArgs e)
+    {
+      dgvGDefCompl.DataSource = null;
+      gDefCompl.Clear();
+    }
+
+    private void btnVisualizarScriptGDefCompl_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    #endregion Eventos GDEFCOMPEL
+
+    #region Métodos GDEFCOMPEL
 
     private bool ValidaCamposPreenchidosGDef(out StringBuilder builder)
     {
@@ -247,50 +355,10 @@ namespace UI
         builder.AppendLine("Informe o campo Tamanho Coluna.");
       }
 
-      #region validações excluidas
-      /*
-     if (String.IsNullOrEmpty(txtGDefCodigoTabelaDinamica.Text))
-     {
-       erro = true;
-       builder.Append("");
-     }
-
-     if (String.IsNullOrEmpty(txtGDefCodigoFormula.Text))
-     {
-       erro = true;
-       builder.Append("");
-     }
-
-     if (String.IsNullOrEmpty(txtGdefValorDefault.Text))
-     {
-       erro = true;
-       builder.Append("");
-     }
-            
-      if (String.IsNullOrEmpty(txtGdefCodigoColigadaFormula.Text))
-    {
-      erro = true;
-      builder.Append("");
-    }
-
-    if (String.IsNullOrEmpty(txtGDefCodApliFormula.Text))
-    {
-      erro = true;
-      builder.Append("");
-    }
-    
-     if (String.IsNullOrEmpty(txtGDefColigada.Text))
-     {
-       erro = true;
-       builder.Append("");
-     }
-     */
-      #endregion validações excluidas
-
       return erro;
     }
 
-    private bool VerificarAplicacaoGCampos(string aplicacao)
+    private bool VerificarAplicacaoGDic(string aplicacao)
     {
       return VerificarAplicacao(aplicacao);
     }
@@ -304,43 +372,13 @@ namespace UI
       return false;
     }
 
-    private void btGDefExcluir_Click(object sender, EventArgs e)
-    {
-      if (dgvGDefCompl.SelectedRows.Count == 0)
-      {
-        MessageBox.Show("Nenhum registro selecionado", "Atenção");
-        return;
-      }
-      else
-      {
-        int indice = dgvGDefCompl.CurrentRow.Index;
-        if (dgvGDefCompl.Rows[indice].Cells[indice].Value.ToString() != null)
-        {
-          dgvGDefCompl.Rows.RemoveAt(dgvGDefCompl.Rows[indice].Index);
-          gDefCompl.RemoveAt(dgvGDefCompl.Rows[indice].Index);
-        }
-      }
-    }
-    private void btGDefLimpar_Click(object sender, EventArgs e)
-    {
-      LimparGDefCompl();
-    }
-
-    private void btnGDefExcluirDadosGrid_Click(object sender, EventArgs e)
-    {
-      dgvGDefCompl.DataSource = null;
-      gDefCompl.Clear();
-    }
-    #endregion GDefCompel
-
-    #region  Métodos privados GDEFCOMPL
     private void LimparGDefCompl()
     {
       txtGDefTamanhoColuna.Text = String.Empty;
       txtGdefAplicacao.Text = String.Empty;
       txtGDefTabelaDados.Text = String.Empty;
       txtGDefNomeColuna.Text = String.Empty;
-      txtDescricao.Text = String.Empty;
+      txtGdicDescricao.Text = String.Empty;
       txtGDefCodigoTabelaDinamica.Text = String.Empty;
       txtGDefCodigoFormula.Text = String.Empty;
       txtGdefValorDefault.Text = String.Empty;
@@ -380,173 +418,27 @@ namespace UI
     private void CarregaColunasDataGridGDefCompl()
     {
       //dgvGDefCompl.AutoGenerateColumnsHeaderText= false;
-      dgvGdicGcampos.Columns[0].HeaderText = "Coligada";//Acrescenta colunas
-      dgvGdicGcampos.Columns[1].HeaderText = "Aplicação";//Acrescenta colunas
-      dgvGdicGcampos.Columns[2].HeaderText = "Tabela De Dados";//Acrescenta colunas
-      dgvGdicGcampos.Columns[3].HeaderText = "Nome Coluna";//Acrescenta colunas
-      dgvGdicGcampos.Columns[4].HeaderText = "Descrição";//Acrescenta colunas
-      dgvGdicGcampos.Columns[5].HeaderText = "Cod. Tab. Dinâmica";//Acrescenta colunas
-      dgvGdicGcampos.Columns[6].HeaderText = "Aplicação Tab. dinâmica";//Acrescenta colunas
-      dgvGdicGcampos.Columns[7].HeaderText = "Ordem";//Acrescenta colunas
-      dgvGdicGcampos.Columns[8].HeaderText = "Quebra Linha";//Acrescenta colunas
-      dgvGdicGcampos.Columns[9].HeaderText = "Oracle";//Acrescenta colunas
-      dgvGdicGcampos.Columns[10].HeaderText = "Pesq. Tab. Dinâm. Por Código";//Acrescenta colunas
-      dgvGdicGcampos.Columns[11].HeaderText = "Cod. Coligada Fórmula";//Acrescenta colunas
-      dgvGdicGcampos.Columns[12].HeaderText = "Cod. Aplicação Fórmula";//Acrescenta colunas
-      dgvGdicGcampos.Columns[13].HeaderText = "Tipo Texto";//Acrescenta colunas
-    }
-    #endregion   Métodos privados GDEFCOMPL
-
-    #region métodos privados GCampos
-    private GCamposGDic GetDadosGcamposGic()
-    {
-      var tabela = string.Empty;
-
-      GCamposGDic gGCamposGDic = new GCamposGDic();
-      if (rbGDic.Checked == true)
-        tabela = "GDIC";
-      if (rbGCampos.Checked == true)
-        tabela = "GCAMPOS";
-
-      gGCamposGDic.TabelaPrincipal = tabela;
-      gGCamposGDic.Tabela = txtTabela.Text.ToUpper();
-      gGCamposGDic.Coluna = txtColuna.Text.ToUpper();
-      gGCamposGDic.Descricao = txtDescricao.Text.ToUpper();
-      gGCamposGDic.Relatorio = chbRelatorio.Checked;
-      gGCamposGDic.Aplicacoes = txtAplicacao.Text.ToUpper();
-
-      return gGCamposGDic;
+      dgvGdic.Columns[0].HeaderText = "Coligada";//Acrescenta colunas
+      dgvGdic.Columns[1].HeaderText = "Aplicação";//Acrescenta colunas
+      dgvGdic.Columns[2].HeaderText = "Tabela De Dados";//Acrescenta colunas
+      dgvGdic.Columns[3].HeaderText = "Nome Coluna";//Acrescenta colunas
+      dgvGdic.Columns[4].HeaderText = "Descrição";//Acrescenta colunas
+      dgvGdic.Columns[5].HeaderText = "Cod. Tab. Dinâmica";//Acrescenta colunas
+      dgvGdic.Columns[6].HeaderText = "Aplicação Tab. dinâmica";//Acrescenta colunas
+      dgvGdic.Columns[7].HeaderText = "Ordem";//Acrescenta colunas
+      dgvGdic.Columns[8].HeaderText = "Quebra Linha";//Acrescenta colunas
+      dgvGdic.Columns[9].HeaderText = "Oracle";//Acrescenta colunas
+      dgvGdic.Columns[10].HeaderText = "Pesq. Tab. Dinâm. Por Código";//Acrescenta colunas
+      dgvGdic.Columns[11].HeaderText = "Cod. Coligada Fórmula";//Acrescenta colunas
+      dgvGdic.Columns[12].HeaderText = "Cod. Aplicação Fórmula";//Acrescenta colunas
+      dgvGdic.Columns[13].HeaderText = "Tipo Texto";//Acrescenta colunas
     }
 
-    private bool ValidaCamposPreenchidos(out StringBuilder builder)
-    {
-      builder = new StringBuilder();
-      bool erro = false;
+    #endregion Métodos GDEFCOMPEL
 
-      if (rbGDic.Checked == false & rbGCampos.Checked == false)
-      {
-        erro = true;
-        builder.AppendLine("Infome uma Tabela Princial do insert.");
-      }
-      if (rbGCampos.Checked == false & rbGDic.Checked == false)
-      {
-        erro = true;
-        builder.AppendLine("Infome apenas uma Tabela Princial do insert.");
-      }
-      if (String.IsNullOrEmpty(txtTabela.Text) || String.IsNullOrWhiteSpace(txtTabela.Text))
-      {
-        erro = true;
-        builder.AppendLine("Informe o campo tabela");
-      }
+    #endregion GDEFCOMPEL Métodos e eventos
 
-      if (String.IsNullOrEmpty(txtColuna.Text) || String.IsNullOrWhiteSpace(txtColuna.Text))
-      {
-        erro = true;
-        builder.AppendLine("Informe campo Coluna");
-      }
-
-      if (String.IsNullOrEmpty(txtDescricao.Text) || String.IsNullOrWhiteSpace(txtDescricao.Text))
-      {
-        erro = true;
-        builder.AppendLine("Informe o campo descrição");
-      }
-
-      if (String.IsNullOrEmpty(txtAplicacao.Text) || String.IsNullOrWhiteSpace(txtAplicacao.Text))
-      {
-        erro = true;
-        builder.AppendLine("Informe o campo aplicações");
-
-      }
-      if (VerificarAplicacaoGCampos(txtAplicacao.Text))
-      {
-        erro = true;
-        builder.AppendLine("O campo Aplicação. Deve ter o caracter ';' após cada letra, e  não deve ser finalizado com o mesmo caracter. \n\nEx: S;A;D  ");
-      }
-
-      return erro;
-    }
-
-    private void LimparGCamposGDic(int flag = 0)
-    {
-      if (flag == 0)
-      {
-        rbGCampos.Checked = false;
-        rbGDic.Checked = false;
-        txtTabela.Text = String.Empty;
-      }
-      txtColuna.Text = String.Empty;
-      txtDescricao.Text = String.Empty;
-      chbRelatorio.Checked = false;
-      txtAplicacao.Text = String.Empty;
-    }
-
-    #endregion métodos privados GCampos
-
-
-    private void btnSair_Click(object sender, EventArgs e)
-    {
-      Application.Exit();
-    }
-
-    private void btnSalvarScript_Click(object sender, EventArgs e)
-    {
-      SaveScript save = new SaveScript();
-      //validar datagrid tem uma linha ou mais
-
-      try
-      {
-        StringBuilder builder = new StringBuilder();
-        if (verificaSalvarScript(out builder))
-          throw new Exception(Convert.ToString(builder));
-
-        if (dgvGdicGcampos.RowCount >= 1)
-        {
-          if (chbSql.Checked)
-          {
-            Salvar(save, true);
-          }
-
-          if (chbOracle.Checked)
-          {
-            Salvar(save, false);
-          }
-        }
-        else
-        {
-          throw new Exception("Cadastre um regstro para poder gerar o script");
-        }
-      }
-      catch (Exception ex)
-      {
-        MessageBox.Show(ex.Message);
-        return;
-      }
-    }
-
-    private bool verificaSalvarScript(out StringBuilder builder)
-    {
-      builder = new StringBuilder();
-
-      bool erro = false;
-
-      if (String.IsNullOrEmpty(txtNomeProjeto.Text))
-      {
-        erro = true;
-        builder.AppendLine("Infome o nome do projeto.");
-      }
-      if (chbSql.Checked == false & chbOracle.Checked == false)
-      {
-        erro = true;
-        builder.AppendLine("Informe qual script sera gerado o script");
-      }
-      return erro;
-    }
-
-    private void btnLimparNomeProjeto_Click(object sender, EventArgs e)
-    {
-      txtNomeProjeto.Text = String.Empty;
-    }
-
+    #region MenuItem
     private void gDICToolStripMenuItem_Click(object sender, EventArgs e)
     {
       OpenFileDialog fileDialog = new OpenFileDialog();
@@ -580,6 +472,137 @@ namespace UI
 
         }
       }
+
+    }
+
+    #endregion MenuItem
+
+    #region Métodos e Eventos Tela Principal
+
+    #region Eventos Tela Principal
+
+    private void btnSalvarScript_Click(object sender, EventArgs e)
+    {
+      SaveScript save = new SaveScript();
+      //validar datagrid tem uma linha ou mais
+
+      try
+      {
+        StringBuilder builder = new StringBuilder();
+        if (verificaSalvarScript(out builder))
+          throw new Exception(Convert.ToString(builder));
+
+        if (dgvGdic.RowCount >= 1)
+        {
+          if (chbSql.Checked)
+          {
+            Salvar(save, true);
+          }
+
+          if (chbOracle.Checked)
+          {
+            Salvar(save, false);
+          }
+        }
+        else
+        {
+          throw new Exception("Cadastre um registro para poder gerar o script");
+        }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+        return;
+      }
+    }
+
+    private bool verificaSalvarScript(out StringBuilder builder)
+    {
+      builder = new StringBuilder();
+
+      bool erro = false;
+
+      if (String.IsNullOrEmpty(txtNomeProjeto.Text))
+      {
+        erro = true;
+        builder.AppendLine("Infome o nome do projeto.");
+      }
+      if (chbSql.Checked == false & chbOracle.Checked == false)
+      {
+        erro = true;
+        builder.AppendLine("Informe qual script sera gerado o script");
+      }
+      return erro;
+    }
+
+    #endregion Eventos Tela Principal
+
+    private DadosPorjeto GetDadosPorjeto()
+    {
+      DadosPorjeto dadosPorjeto = new DadosPorjeto();
+      dadosPorjeto.Nome = txtNomeProjeto.Text;
+      dadosPorjeto.CodProjeto = txtCodProj.Text;
+      dadosPorjeto.tipoCliente = Convert.ToString(cbTipoCliente.SelectedItem);
+      return dadosPorjeto;
+    }
+
+    //todo: Possibilitar atualizção de dados sem inserir o campo novamente
+    private void dgvGdic_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+      DataGridViewRow row = dgvGdic.CurrentRow;
+      //txtGdicTabela.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[0].Value);
+      txtGdicColuna.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[1].Value);
+      txtGdicDescricao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[2].Value);
+      chbGdicRelatorio.Checked = Convert.ToBoolean(dgvGdic.Rows[row.Index].Cells[3].Value);
+      txtGdicAplicacao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[4].Value);
+    }
+
+    #region Metodos Tela Principal
+
+    private void btnSair_Click(object sender, EventArgs e)
+    {
+      Application.Exit();
+    }
+
+    private void Salvar(SaveScript saveScript, bool sql)
+    {
+      SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+      saveFileDialog1.Filter = "sql files (*.sql)|*.sql|All files (*.*)|*.*";
+      saveFileDialog1.FilterIndex = 1;
+      saveFileDialog1.Title = "Salvar - Script";
+      saveFileDialog1.RestoreDirectory = true;
+
+      if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+      {
+        String path = String.Empty;
+        //verifica se salva sql ou oracle
+        if (sql == true)
+        {
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
+          saveScript.SalvarScriptSQL(path, GetDadosPorjeto(), gDefCompl, gdic);
+        }
+        else
+        {
+          path = ManipulaNomeArquivo(saveFileDialog1.FileName, sql);
+          saveScript.SalvarScriptOracle(path, GetDadosPorjeto(), gDefCompl, gdic);
+        }
+        Clipboard.SetText(path);
+        MessageBox.Show($"Salvo com sucesso em: {path} {Environment.NewLine} O Caminho do script está na área de transferência.");
+      }
+    }
+
+    #endregion Metodos Tela Principal
+
+    #endregion Métodos e Eventos Tela Principal
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      StringBuilder s = new StringBuilder();
+      s.AppendLine("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+      s.AppendLine("aaaaaaaaaaaaaaaaaaaaaaaaaaDDDDDD");
+      s.AppendLine("aaaaaaaaaaaaaaaaaaaaaaaaaaFFFFF");
+      s.AppendLine("aaaaaaaaaaaaaaaaaaaaaaaaaaVVVVV");
+      textBox2.Text = s.ToString();
 
     }
   }

@@ -1,44 +1,43 @@
 ﻿using DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
-  public class OracleGCamposGDic
+  public class Oracle
   {
-    public StringBuilder GeraInsertOracleGCamposGDic(GCamposGDic gCamposGDic)
+    #region Gdic
+    public StringBuilder GeraInsertOracleGDic(GDic gCamposGDic)
     {
 
       var rel = (gCamposGDic.Relatorio == true) ? 1 : 0;
       return new StringBuilder().AppendLine($@"
 /*************************************************************
-         {gCamposGDic.TabelaPrincipal} - {gCamposGDic.Tabela} - {gCamposGDic.Coluna}
+         GDIC - {gCamposGDic.Tabela}.{gCamposGDic.Coluna}
 *************************************************************/
-SELECT COUNT(*) INTO EXIST FROM {gCamposGDic.TabelaPrincipal} WHERE TABELA = '{gCamposGDic.Tabela}' AND COLUNA = '{gCamposGDic.Coluna}';
+SELECT COUNT(*) INTO EXIST FROM GDIC WHERE TABELA = '{gCamposGDic.Tabela}' AND COLUNA = '{gCamposGDic.Coluna}';
 IF EXIST = 0 THEN
-  INSERT INTO {gCamposGDic.TabelaPrincipal} (TABELA, COLUNA, DESCRICAO, RELATORIO, APLICACOES) 
-  VALUES('{gCamposGDic.Tabela}', '{gCamposGDic.Coluna}', ''{gCamposGDic.Descricao}', {rel}, '{gCamposGDic.Aplicacoes}');
+  INSERT INTO GDIC (TABELA, COLUNA, DESCRICAO, RELATORIO, APLICACOES) 
+  VALUES('{gCamposGDic.Tabela}', '{gCamposGDic.Coluna}', '{gCamposGDic.Descricao}', {rel}, '{gCamposGDic.Aplicacoes}');
 END IF {Environment.NewLine}");
 
     }
+    #endregion Gdic
 
-
-public StringBuilder GeraInsertOracleGDef(GDefCompl gDefCompl)
+    #region GDefCompl
+    public StringBuilder GeraInsertOracleGDef(GDefCompl gDefCompl)
     {
       return new StringBuilder()
         .AppendLine ($@"
 DECLARE EXIST INTEGER;
 BEGIN
 /*************************************************************
-         GDEFCOMPL - {gDefCompl.TabelaDados} - {gDefCompl.NomeColuna}
+         GDEFCOMPL - {gDefCompl.TabelaDados}.{gDefCompl.NomeColuna}
 *************************************************************/
 SELECT COUNT(*) INTO EXIST FROM user_tab_cols where column_name = '{gDefCompl.NomeColuna}' and table_name = '{gDefCompl.TabelaDados}';
 IF EXIST = 0 THEN
   EXECUTE IMMEDIATE
- 'ALTER TABLE {gDefCompl.TabelaDados} ADD  {gDefCompl.NomeColuna} VARCHAR(60) NULL';
+ 'ALTER TABLE GDEFCOMPL ADD  {gDefCompl.NomeColuna} VARCHAR(60) NULL';
 
   DECLARE V_COLIGADA2 INTEGER;
 
@@ -59,5 +58,16 @@ IF EXIST = 0 THEN
   END;
 END IF {Environment.NewLine}");
     }
+
+    #endregion GDefCompl
+
+    #region GLinksRel
+    public StringBuilder GeraInsertOracleGLinksrel(GLinksRel gLinksRel)
+    {
+      return new StringBuilder()
+      .AppendLine($@"");
+    }
+
+    #endregion GLinksRel
   }
 }

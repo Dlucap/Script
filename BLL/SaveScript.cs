@@ -10,47 +10,96 @@ namespace BLL
 {
   public class SaveScript
   {
-
-    public StringBuilder Cabecalho(string nomeProjeto)
+    #region Cabeçalho
+    public StringBuilder Cabecalho(DadosPorjeto dadosPorjeto)
     {
-      return new StringBuilder();
+      StringBuilder stringBuilder = new StringBuilder();
+      return stringBuilder.Append($@"
+/*************************************************************
+         {dadosPorjeto.Nome} - {dadosPorjeto.CodProjeto}
+         {dadosPorjeto.tipoCliente}
+ *************************************************************/");
     }
 
-    public void SalvarScriptSQL(string fileName,List<GDefCompl> gDefCompls ,List<GCamposGDic> gCamposGDic)
-    {
-      using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
-      {
-        SqlGCamposGDic sqlGDefCompl = new SqlGCamposGDic();
-        foreach (var item in gDefCompls)
-        {
-          outfile.Write(sqlGDefCompl.GeraInsertSqlGDef(item));
-        }
+    #endregion  #region Cabeçalho
 
-        foreach (var item in gCamposGDic)
-        {          
-          outfile.Write(sqlGDefCompl.GeraInsertSqlGCamposGDic(item));
-        }
-      }
-    }
+    #region  Salvar/Gerar Script SQl
 
-    public void SalvarScriptOracle(string fileName, List<GDefCompl> gDefCompls, List<GCamposGDic> modeloCamposGDic)
+    #region Salvar Sql
+    public void SalvarScriptSQL(string fileName, DadosPorjeto dadosPorjeto, List<GDefCompl> gDefCompls, List<GDic> gGDic)
     {
       using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
       {
-        OracleGCamposGDic oracleSsqlGCamposGDic = new OracleGCamposGDic();
-
-        foreach (var item in gDefCompls)
-        {
-          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracleGDef(item));
-        }
-
-        foreach (var item in modeloCamposGDic)
-        {
-          StringBuilder builder = new StringBuilder();
-          outfile.Write(oracleSsqlGCamposGDic.GeraInsertOracleGCamposGDic(item));
-        }
+        outfile.Write(GerarScriptSql(dadosPorjeto, gDefCompls, gGDic));
       }
     }
+    #endregion Salvar Sql
+
+    #region Gerar SQL
+    private StringBuilder GerarScriptSql(DadosPorjeto dadosPorjeto, List<GDefCompl> gDefCompls, List<GDic> gGDic)
+    {
+      StringBuilder stringBuilder = new StringBuilder();
+      Sql sql = new Sql();
+
+      stringBuilder.Append(Cabecalho(dadosPorjeto));
+      if (gGDic.Any())
+      {
+        foreach (var item in gGDic)
+        {
+          stringBuilder.Append(sql.GeraInsertSqlGDic(item));
+        }
+      }
+
+      if (gDefCompls.Any())
+      {
+        foreach (var item in gDefCompls)
+        {
+          stringBuilder.Append(sql.GeraInsertSqlGDef(item));
+        }
+      }
+     
+      return stringBuilder;
+    }
+    #endregion Gerar SQL
+
+    #endregion  Salvar/Gerar Script SQl
+
+    #region  Salvar/Gerar Script ORACLE
+
+    #region  Salvar/Gerar Script ORACLE
+    public void SalvarScriptOracle(string fileName, DadosPorjeto dadosPorjeto, List<GDefCompl> gDefCompls, List<GDic> gGDic)
+    {
+      using (StreamWriter outfile = new StreamWriter(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite), Encoding.UTF8))
+      {
+        outfile.Write(GeraScriptOracle(dadosPorjeto, gDefCompls, gGDic));
+      }
+    }
+    #endregion  Salvar/Gerar Script ORACLE
+
+    #region Gerar Oracle
+    private StringBuilder GeraScriptOracle(DadosPorjeto dadosPorjeto, List<GDefCompl> gDefCompls, List<GDic> gGDic)
+    {
+      StringBuilder stringBuilder = new StringBuilder();
+      Oracle oracle = new Oracle();
+
+      stringBuilder.Append(Cabecalho(dadosPorjeto));
+
+      foreach (var item in gDefCompls)
+      {
+        stringBuilder.Append(oracle.GeraInsertOracleGDef(item));
+      }
+
+      foreach (var item in gGDic)
+      {
+        StringBuilder builder = new StringBuilder();
+        stringBuilder.Append(oracle.GeraInsertOracleGDic(item));
+      }
+
+      return stringBuilder;
+    }
+    #endregion Gerar Oracle
+
+    #endregion  Salvar/Gerar Script ORACLE
 
   }
 }
