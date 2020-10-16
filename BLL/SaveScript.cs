@@ -44,9 +44,11 @@ namespace BLL
       stringBuilder.Append(Cabecalho(dadosPorjeto));
       if (gGDic.Any())
       {
+        bool cabecalho = true;
         foreach (var item in gGDic)
         {
-          stringBuilder.Append(sql.GeraInsertSqlGDic(item));
+          stringBuilder.Append(sql.GeraInsertSqlGDic(item,cabecalho));
+          cabecalho = false;
         }
       }
 

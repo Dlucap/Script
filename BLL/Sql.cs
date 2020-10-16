@@ -7,22 +7,27 @@ namespace BLL
   public class Sql
   {
     #region Gdic
-    public StringBuilder GeraInsertSqlGDic(GDic gDic)
+    public StringBuilder GeraInsertSqlGDic(GDic gDic, bool cabecalho)
     {
       StringBuilder builder = new StringBuilder();
 
       var rel = (gDic.Relatorio == true) ? 1 : 0;
-    
-      return builder.Append($@"
+
+      if (cabecalho)
+      {
+        builder.Append($@"
 /*************************************************************
-         GDIC - {gDic.Tabela}.{gDic.Coluna} 
-*************************************************************/
+         GDIC - {gDic.Tabela} 
+*************************************************************/\n");
+      }
+
+      return builder.Append($@"
 IF NOT EXISTS (SELECT NULL FROM GDIC WHERE TABELA = '{gDic.Tabela}' AND COLUNA = '{gDic.Coluna}')
 BEGIN
   INSERT INTO GDIC (TABELA,COLUNA,DESCRICAO,RELATORIO,APLICACOES) 
   VALUES ('{gDic.Tabela}','{gDic.Coluna}','{gDic.Descricao}',{rel},'{gDic.Aplicacoes}')
 END {Environment.NewLine}");
-        
+
     }
     #endregion Gdic
 

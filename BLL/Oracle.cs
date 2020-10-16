@@ -19,7 +19,7 @@ SELECT COUNT(*) INTO EXIST FROM GDIC WHERE TABELA = '{gCamposGDic.Tabela}' AND C
 IF EXIST = 0 THEN
   INSERT INTO GDIC (TABELA, COLUNA, DESCRICAO, RELATORIO, APLICACOES) 
   VALUES('{gCamposGDic.Tabela}', '{gCamposGDic.Coluna}', '{gCamposGDic.Descricao}', {rel}, '{gCamposGDic.Aplicacoes}');
-END IF {Environment.NewLine}");
+END IF {Environment.NewLine};");
 
     }
     #endregion Gdic
@@ -56,7 +56,7 @@ IF EXIST = 0 THEN
     CLOSE COLIGADA_CUR2;
 
   END;
-END IF {Environment.NewLine}");
+END IF {Environment.NewLine};");
     }
 
     #endregion GDefCompl

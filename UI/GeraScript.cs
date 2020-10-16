@@ -12,17 +12,17 @@ using System.Windows.Forms;
 
 namespace UI
 {
-  public partial class GeraScript : Form
+  public partial class FormScript : Form
   {
     #region Objetos GDIC e GDEFCOMPL
 
     CollectionsGDic gdic = new CollectionsGDic();
     CollectionsGDefCompl gDefCompl = new CollectionsGDefCompl();
-
+    int id = 0;
     #endregion Objetos GDIC e GDEFCOMPL
 
     #region Construtor
-    public GeraScript()
+    public FormScript()
     {
       InitializeComponent();
     }
@@ -38,7 +38,19 @@ namespace UI
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (ValidaCamposPreenchidosGDic(out builder))
+        if (!ValidaCamposPreenchidosGDic(out builder))
+        {
+          if (id==0)
+          {
+           
+          }
+          gdic.Add(GetDadosGDic());
+          AlimentaGridViewGDic(gdic);
+          LimparGDic(1);
+            CongelarCampos();
+                
+        }
+        else
         {
           throw new Exception(Convert.ToString(builder));
         }
@@ -48,12 +60,6 @@ namespace UI
         MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
-      gdic.Add(GetDadosGDic());
-
-      //CarregaColunasDataGridGDic();
-      AlimentaGridViewGDic(gdic);
-      LimparGDic(1);
-      CongelarCampos();
     }
 
     private void btnGcamposGDicExcluir_Click(object sender, EventArgs e)
@@ -68,6 +74,7 @@ namespace UI
         int indice = dgvGdic.CurrentRow.Index;
         if (dgvGdic.Rows[indice].Cells[indice].Value.ToString() != null)
         {
+          gdic.RemoveAt(indice); 
           dgvGdic.Rows.RemoveAt(dgvGdic.Rows[indice].Index);
           gdic.RemoveAt(dgvGdic.Rows[indice].Index);
         }
@@ -94,6 +101,7 @@ namespace UI
 
     private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
     {
+       gdic = new CollectionsGDic();
       dgvGdic.DataSource = null;
       gdic.Clear();
       txtGdicTabela.Enabled = true;
@@ -104,7 +112,7 @@ namespace UI
     private void btnVisualizarScriptGDic_Click(object sender, EventArgs e)
     {
       StringBuilder teste = new StringBuilder();
-  
+
       FormVisualizar formVisualizar = new FormVisualizar(teste);
       formVisualizar.Show();
     }
@@ -191,6 +199,7 @@ namespace UI
       Utils utils = new Utils();
       GDic gDic = new GDic();
 
+      gDic.id = gdic.Count() + 1;
       gDic.Tabela = txtGdicTabela.Text.ToUpper();
       gDic.Coluna = txtGdicColuna.Text.ToUpper();
       gDic.Descricao = txtGdicDescricao.Text.ToUpper();
@@ -246,22 +255,25 @@ namespace UI
       try
       {
         StringBuilder builder = new StringBuilder();
-        if (ValidaCamposPreenchidosGDef(out builder))
+        if (!ValidaCamposPreenchidosGDef(out builder))
         {
-          throw new Exception(Convert.ToString(builder));
+          var gdef = GetDadosGDefCompl();
+          // if ()
+          gDefCompl.Add(gdef);
+
+          dgvGDefCompl.AutoGenerateColumns = true;
+          dgvGDefCompl.DataSource = new BindingList<GDefCompl>(gDefCompl.ToList());
+          dgvGDefCompl.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //LimparGDefCompl();
         }
+        throw new Exception(Convert.ToString(builder));
       }
       catch (Exception ex)
       {
         MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
-      gDefCompl.Add(GetDadosGDefCompl());
 
-      dgvGDefCompl.AutoGenerateColumns = true;
-      dgvGDefCompl.DataSource = new BindingList<GDefCompl>(gDefCompl.ToList());
-      dgvGDefCompl.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-      //LimparGDefCompl();
     }
 
     private void btGDefExcluir_Click(object sender, EventArgs e)
@@ -550,11 +562,11 @@ namespace UI
     private void dgvGdic_CellClick(object sender, DataGridViewCellEventArgs e)
     {
       DataGridViewRow row = dgvGdic.CurrentRow;
-      //txtGdicTabela.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[0].Value);
-      txtGdicColuna.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[1].Value);
-      txtGdicDescricao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[2].Value);
-      chbGdicRelatorio.Checked = Convert.ToBoolean(dgvGdic.Rows[row.Index].Cells[3].Value);
-      txtGdicAplicacao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[4].Value);
+       id = Convert.ToInt32(dgvGdic.Rows[row.Index].Cells[0].Value);
+      txtGdicColuna.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[2].Value);
+      txtGdicDescricao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[3].Value);
+      chbGdicRelatorio.Checked = Convert.ToBoolean(dgvGdic.Rows[row.Index].Cells[4].Value);
+      txtGdicAplicacao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[5].Value);
     }
 
     #region Metodos Tela Principal
@@ -604,6 +616,11 @@ namespace UI
       s.AppendLine("aaaaaaaaaaaaaaaaaaaaaaaaaaVVVVV");
       textBox2.Text = s.ToString();
 
+    }
+
+    private void btnGdicCancelar_Click(object sender, EventArgs e)
+    {
+      LimparGDic();
     }
   }
 }

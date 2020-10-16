@@ -8,6 +8,7 @@ namespace DTO
 {
   public class GDic
   {
+    public int id { get; set; }
     public string Tabela { get; set; }
     public string Coluna { get; set; }
     public string Descricao { get; set; }

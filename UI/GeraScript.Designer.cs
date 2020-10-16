@@ -1,6 +1,6 @@
 ﻿namespace UI
 {
-  partial class GeraScript
+  partial class FormScript
   {
     /// <summary>
     /// Required designer variable.
@@ -28,7 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeraScript));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScript));
       this.tabControlTabelas = new System.Windows.Forms.TabControl();
       this.tabGDic = new System.Windows.Forms.TabPage();
       this.btnVisualizarScriptGDic = new System.Windows.Forms.Button();
@@ -36,6 +36,7 @@
       this.dgvGdic = new System.Windows.Forms.DataGridView();
       this.btnExcluirDadosGridGDic = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.btnGdicCancelar = new System.Windows.Forms.Button();
       this.btnInserirDadosGdic = new System.Windows.Forms.Button();
       this.txtGdicAplicacao = new System.Windows.Forms.TextBox();
       this.lblAplicacoes = new System.Windows.Forms.Label();
@@ -139,7 +140,7 @@
       this.tabGDic.Padding = new System.Windows.Forms.Padding(3);
       this.tabGDic.Size = new System.Drawing.Size(1167, 446);
       this.tabGDic.TabIndex = 0;
-      this.tabGDic.Text = "GDIC";
+      this.tabGDic.Text = "Dicionário de dados (GDIC)";
       this.tabGDic.UseVisualStyleBackColor = true;
       // 
       // btnVisualizarScriptGDic
@@ -186,6 +187,7 @@
       // 
       this.panel1.AutoSize = true;
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.panel1.Controls.Add(this.btnGdicCancelar);
       this.panel1.Controls.Add(this.btnInserirDadosGdic);
       this.panel1.Controls.Add(this.txtGdicAplicacao);
       this.panel1.Controls.Add(this.lblAplicacoes);
@@ -201,6 +203,16 @@
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(472, 395);
       this.panel1.TabIndex = 7;
+      // 
+      // btnGdicCancelar
+      // 
+      this.btnGdicCancelar.Location = new System.Drawing.Point(171, 239);
+      this.btnGdicCancelar.Name = "btnGdicCancelar";
+      this.btnGdicCancelar.Size = new System.Drawing.Size(75, 23);
+      this.btnGdicCancelar.TabIndex = 14;
+      this.btnGdicCancelar.Text = "Cancelar";
+      this.btnGdicCancelar.UseVisualStyleBackColor = true;
+      this.btnGdicCancelar.Click += new System.EventHandler(this.btnGdicCancelar_Click);
       // 
       // btnInserirDadosGdic
       // 
@@ -310,7 +322,7 @@
       this.tabGDefCompl.Padding = new System.Windows.Forms.Padding(3);
       this.tabGDefCompl.Size = new System.Drawing.Size(1167, 446);
       this.tabGDefCompl.TabIndex = 1;
-      this.tabGDefCompl.Text = "GDEFCOMPL";
+      this.tabGDefCompl.Text = "Campos Complementares (GDEFCOMPL)";
       this.tabGDefCompl.UseVisualStyleBackColor = true;
       // 
       // btnVisualizarScriptGDefCompl
@@ -699,7 +711,7 @@
       this.tabGLinksRel.Padding = new System.Windows.Forms.Padding(3);
       this.tabGLinksRel.Size = new System.Drawing.Size(1167, 446);
       this.tabGLinksRel.TabIndex = 2;
-      this.tabGLinksRel.Text = "GLINKREL";
+      this.tabGLinksRel.Text = "Dicionario de Dados Relatório (GLINKSREL)";
       this.tabGLinksRel.UseVisualStyleBackColor = true;
       // 
       // button1
@@ -815,6 +827,8 @@
       // 
       // cbTipoCliente
       // 
+      this.cbTipoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbTipoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.cbTipoCliente.FormattingEnabled = true;
       this.cbTipoCliente.Items.AddRange(new object[] {
             "CNI_DN",
@@ -837,7 +851,7 @@
       this.lblCliente.TabIndex = 28;
       this.lblCliente.Text = "Cliente";
       // 
-      // GeraScript
+      // FormScript
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -854,7 +868,7 @@
       this.Controls.Add(this.tabControlTabelas);
       this.Controls.Add(this.menuStrip1);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.Name = "GeraScript";
+      this.Name = "FormScript";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Script";
       this.tabControlTabelas.ResumeLayout(false);
@@ -953,5 +967,6 @@
     private System.Windows.Forms.Label lblCliente;
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.Button btnGdicCancelar;
   }
 }
