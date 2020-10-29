@@ -18,7 +18,9 @@ namespace UI
 
     CollectionsGDic gdic = new CollectionsGDic();
     CollectionsGDefCompl gDefCompl = new CollectionsGDefCompl();
-    int id = 0;
+    int idGDic = 0;
+    CrudEnum operacao = CrudEnum.Inserir;
+
     #endregion Objetos GDIC e GDEFCOMPL
 
     #region Construtor
@@ -26,7 +28,6 @@ namespace UI
     {
       InitializeComponent();
     }
-
     #endregion Construtor
 
     #region GDIC Métodos e eventos
@@ -40,15 +41,21 @@ namespace UI
         StringBuilder builder = new StringBuilder();
         if (!ValidaCamposPreenchidosGDic(out builder))
         {
-          if (id==0)
+          switch (operacao)
           {
-           
+            case CrudEnum.Inserir:
+              gdic.Add(GetDadosGDic(CrudEnum.Inserir));
+
+              break;
+            case CrudEnum.Editar:
+              Atualizar(gdic, GetDadosGDic(CrudEnum.Editar), idGDic);
+              operacao = CrudEnum.Inserir;
+              break;
           }
-          gdic.Add(GetDadosGDic());
+          btnInserirDadosGdic.Text = CrudEnum.Inserir.ToString();
           AlimentaGridViewGDic(gdic);
           LimparGDic(1);
-            CongelarCampos();
-                
+          CongelarCampoTabela();
         }
         else
         {
@@ -57,7 +64,7 @@ namespace UI
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show(ex.Message, DTO.Properties.Resources.GSAviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
     }
@@ -66,7 +73,7 @@ namespace UI
     {
       if (dgvGdic.SelectedRows.Count == 0)
       {
-        MessageBox.Show("Nenhum registro selecionado", "Atenção");
+        MessageBox.Show(DTO.Properties.Resources.GSNenhumRegistroSelecionado, DTO.Properties.Resources.GSAtencao);
         return;
       }
       else
@@ -74,13 +81,12 @@ namespace UI
         int indice = dgvGdic.CurrentRow.Index;
         if (dgvGdic.Rows[indice].Cells[indice].Value.ToString() != null)
         {
-          gdic.RemoveAt(indice); 
-          dgvGdic.Rows.RemoveAt(dgvGdic.Rows[indice].Index);
-          gdic.RemoveAt(dgvGdic.Rows[indice].Index);
+          gdic.RemoveAt(indice);
+          AlimentaGridViewGDic(gdic);
         }
         if (VerificaGridView(dgvGdic))
         {
-          DescongelaCampos();
+          DescongelaCampoTabela();
           LimparGDic();
         }
       }
@@ -95,18 +101,22 @@ namespace UI
       else
       {
         LimparGDic(1);
-        CongelarCampos();
+        CongelarCampoTabela();
       }
     }
 
     private void btnExcluirDadosGrid_Click(object sender, EventArgs e)
     {
-       gdic = new CollectionsGDic();
+      if (dgvGdic.RowCount == 0)
+      {
+        MessageBox.Show(DTO.Properties.Resources.GSNaoEhPossivelExcluirDadosGrid, DTO.Properties.Resources.GSAviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+      }
+
+      gdic = new CollectionsGDic();
       dgvGdic.DataSource = null;
       gdic.Clear();
       txtGdicTabela.Enabled = true;
       LimparGDic();
-      // CarregaColunasDataGridGCamposGdic();
     }
 
     private void btnVisualizarScriptGDic_Click(object sender, EventArgs e)
@@ -117,13 +127,68 @@ namespace UI
       formVisualizar.Show();
     }
 
+    private void btnGdicCancelar_Click(object sender, EventArgs e)
+    {
+      LimparGDic();
+    }
+
+    private void dgvGdic_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+      idGDic = 0;
+      DataGridViewRow row = dgvGdic.CurrentRow;
+     
+      idGDic = dgvGdic.CurrentRow.Index + 1;
+      if (idGDic >= 0)
+      {
+        txtGdicColuna.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[2].Value);
+        txtGdicDescricao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[3].Value);
+        chbGdicRelatorio.Checked = Convert.ToBoolean(dgvGdic.Rows[row.Index].Cells[4].Value);
+        txtGdicAplicacao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[5].Value);
+        CongelarCampos();
+      }
+      else
+      {
+        MessageBox.Show(DTO.Properties.Resources.GSnsiraRegistroGrid, DTO.Properties.Resources.GSAviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+      }
+    }
+
     #endregion Eventos GDIC
 
     #region Métodos GDIC
+    private void Atualizar(CollectionsGDic gDic, GDic gdic, int id)
+    {
+      foreach (var item in gDic)
+      {
+        if (item.id == id)
+        {
+          item.Tabela = txtGdicTabela.Text.ToUpper();
+          item.Coluna = txtGdicColuna.Text.ToUpper();
+          item.Descricao = txtGdicDescricao.Text;
+          item.Relatorio = chbGdicRelatorio.Checked;
+          item.Aplicacoes = txtGdicAplicacao.Text.ToUpper();
+        }
+      }
+    }
+
+    private void CongelarCampoTabela()
+    {
+      txtGdicTabela.Enabled = false;
+    }
 
     private void CongelarCampos()
     {
-      txtGdicTabela.Enabled = false;
+      txtGdicColuna.Enabled = false;
+      txtGdicDescricao.Enabled = false;
+      chbGdicRelatorio.Enabled = false;
+      txtGdicAplicacao.Enabled = false;
+    }
+
+    private void DescongelaCampos()
+    {
+      txtGdicColuna.Enabled = true;
+      txtGdicDescricao.Enabled = true;
+      chbGdicRelatorio.Enabled = true;
+      txtGdicAplicacao.Enabled = true;
     }
 
     private string ManipulaNomeArquivo(string fileName, bool sqlOracle)
@@ -132,7 +197,7 @@ namespace UI
       return fileName.Replace(".sql", banco);
     }
 
-    private void DescongelaCampos()
+    private void DescongelaCampoTabela()
     {
       txtGdicTabela.Enabled = true;
       txtGdicTabela.Text = String.Empty;
@@ -140,9 +205,10 @@ namespace UI
 
     private void AlimentaGridViewGDic(CollectionsGDic gdic)
     {
+      dgvGdic.DataSource = null;
       dgvGdic.AutoGenerateColumns = true;
       dgvGdic.DataSource = new BindingList<GDic>(gdic.ToList());
-      dgvGdic.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+      dgvGdic.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
     }
 
     private bool VerificaGridView(DataGridView dgv)
@@ -158,18 +224,19 @@ namespace UI
     {
       dgvGdic.AutoGenerateColumns = true;
       dgvGdic.Columns.Add("tabela", "Tabela");//Acrescenta colunas
+                                              // dgvGdic.Columns[0].Width= 200;//Acrescenta colunas
+
       dgvGdic.Columns.Add("coluna", "Coluna");//Acrescenta colunas
+                                              // dgvGdic.Columns[1].Width = 200;
+
       dgvGdic.Columns.Add("descricao", "Descrição");//Acrescenta colunas
+                                                    //  dgvGdic.Columns[2].Width = 200;
+
       dgvGdic.Columns.Add("relatório", "Relatório");//Acrescenta colunas
+      //dgvGdic.Columns[3].Width = 60;
+
       dgvGdic.Columns.Add("aplicacooes", "Aplicações");//Acrescenta colunas
-      dgvGdic.Columns.Add("consultaTexo", "Consulta Texo");//Acrescenta colunas
-      //dgvGdic.Columns.Add("Action", "Action");//Acrescenta colunas
-      //dgvGdic.Columns.Add("ActionKeyField", "ActionKeyField");//Acrescenta colunas
-      //dgvGdic.Columns.Add("ActionSearchField", "ActionSearchField");//Acrescenta colunas
-      //dgvGdic.Columns.Add("SecColName", "SecColName");//Acrescenta colunas
-      //dgvGdic.Columns.Add("SecColigadaColumn", "SecColigadaColumn");//Acrescenta colunas
-      //dgvGdic.Columns.Add("Status", "Status");//Acrescenta colunas
-      //dgvGdic.Columns.Add("Usuario Criação", "Usuario Criação");//Acrescenta colunas
+                                                       // dgvGdic.Columns[0].Width = 100;
 
     }
 
@@ -183,36 +250,26 @@ namespace UI
       txtGdicDescricao.Text = String.Empty;
       chbGdicRelatorio.Checked = false;
       txtGdicAplicacao.Text = String.Empty;
-      //txtGDicAction.Text = String.Empty;
-      //txtGdicActionSearchField.Text = String.Empty;
-      //txtGdicActionKeyField.Text = String.Empty;
-      //txtGdicColiColuSeguranca.Text =  String.Empty;
-      //txtGdicColunaSeguranca.Text = String.Empty;
-      //txtGdicUsuarioScript.Text = String.Empty;
-      //chbGdicStatus.Checked = false;
-      //chbGdicConsultaTexto.Checked = false;
     }
 
-    private GDic GetDadosGDic()
+    private GDic GetDadosGDic(CrudEnum crud)
     {
-      var tabela = string.Empty;
-      Utils utils = new Utils();
       GDic gDic = new GDic();
+      if (crud == CrudEnum.Inserir)
+      {
+        gDic.id = gdic.Count() + 1;
+      }
 
-      gDic.id = gdic.Count() + 1;
+      if (crud == CrudEnum.Editar)
+      {
+        gDic.id = idGDic;
+      }
+
       gDic.Tabela = txtGdicTabela.Text.ToUpper();
       gDic.Coluna = txtGdicColuna.Text.ToUpper();
-      gDic.Descricao = txtGdicDescricao.Text.ToUpper();
+      gDic.Descricao = txtGdicDescricao.Text;
       gDic.Relatorio = chbGdicRelatorio.Checked;
       gDic.Aplicacoes = txtGdicAplicacao.Text.ToUpper();
-      //gDic.ConsultaTexo = chbGdicConsultaTexto.Checked;
-      //gDic.Action = utils.VerificaStringVazia(txtGDicAction.Text);
-      //gDic.ActionKeyField = utils.VerificaStringVazia(txtGdicActionKeyField.Text);
-      //gDic.ActionSearchField = utils.VerificaStringVazia(txtGdicActionSearchField.Text);
-      //gDic.SecColName = utils.VerificaStringVazia(txtGdicColunaSeguranca.Text);
-      //gDic.SecColigadaColumn = utils.VerificaStringVazia(txtGdicColiColuSeguranca.Text);
-      //gDic.Status = chbGdicStatus.Checked;
-      //gDic.RecCreatedBy = utils.VerificaStringVazia(txtGdicUsuarioScript.Text);
 
       return gDic;
     }
@@ -242,6 +299,13 @@ namespace UI
       return erro;
     }
 
+    private void button2_Click(object sender, EventArgs e)
+    {
+      DescongelaCampos();
+      btnInserirDadosGdic.Text = DTO.Properties.Resources.GSAtualizar;
+      operacao = CrudEnum.Editar;
+    }
+
     #endregion Métodos GDIC
 
     #endregion Gdic Métodos e eventos
@@ -258,19 +322,19 @@ namespace UI
         if (!ValidaCamposPreenchidosGDef(out builder))
         {
           var gdef = GetDadosGDefCompl();
-          // if ()
+          
           gDefCompl.Add(gdef);
 
           dgvGDefCompl.AutoGenerateColumns = true;
           dgvGDefCompl.DataSource = new BindingList<GDefCompl>(gDefCompl.ToList());
           dgvGDefCompl.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //LimparGDefCompl();
+         
         }
         throw new Exception(Convert.ToString(builder));
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show(ex.Message, DTO.Properties.Resources.GSAviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
       }
 
@@ -280,7 +344,7 @@ namespace UI
     {
       if (dgvGDefCompl.SelectedRows.Count == 0)
       {
-        MessageBox.Show("Nenhum registro selecionado", "Atenção");
+        MessageBox.Show(DTO.Properties.Resources.GSNenhumRegistroSelecionado, DTO.Properties.Resources.GSAtencao);
         return;
       }
       else
@@ -411,7 +475,7 @@ namespace UI
       gDefCompl.Aplicacao = txtGdefAplicacao.Text.ToUpper();
       gDefCompl.TabelaDados = txtGDefTabelaDados.Text.ToUpper();
       gDefCompl.NomeColuna = txtGDefNomeColuna.Text.ToUpper();
-      gDefCompl.Descricao = txtGDefDescricao.Text.ToUpper();
+      gDefCompl.Descricao = txtGDefDescricao.Text;
       gDefCompl.CodTabelaDinamica = txtGDefCodigoTabelaDinamica.Text;
       gDefCompl.Codformula = txtGDefCodigoFormula.Text;
       gDefCompl.ValorDefault = txtGdefValorDefault.Text;
@@ -429,21 +493,48 @@ namespace UI
 
     private void CarregaColunasDataGridGDefCompl()
     {
-      //dgvGDefCompl.AutoGenerateColumnsHeaderText= false;
+
       dgvGdic.Columns[0].HeaderText = "Coligada";//Acrescenta colunas
+      dgvGdic.Columns[0].Width = 10;
+
       dgvGdic.Columns[1].HeaderText = "Aplicação";//Acrescenta colunas
+      dgvGdic.Columns[1].Width = 20;
+
       dgvGdic.Columns[2].HeaderText = "Tabela De Dados";//Acrescenta colunas
+      dgvGdic.Columns[2].Width = 50;
+
       dgvGdic.Columns[3].HeaderText = "Nome Coluna";//Acrescenta colunas
+      dgvGdic.Columns[3].Width = 50;
+
       dgvGdic.Columns[4].HeaderText = "Descrição";//Acrescenta colunas
+      dgvGdic.Columns[4].Width = 75;
+
       dgvGdic.Columns[5].HeaderText = "Cod. Tab. Dinâmica";//Acrescenta colunas
+      dgvGdic.Columns[5].Width = 50;
+
       dgvGdic.Columns[6].HeaderText = "Aplicação Tab. dinâmica";//Acrescenta colunas
+      dgvGdic.Columns[6].Width = 50;
+
       dgvGdic.Columns[7].HeaderText = "Ordem";//Acrescenta colunas
+      dgvGdic.Columns[7].Width = 50;
+
       dgvGdic.Columns[8].HeaderText = "Quebra Linha";//Acrescenta colunas
+      dgvGdic.Columns[8].Width = 50;
+
       dgvGdic.Columns[9].HeaderText = "Oracle";//Acrescenta colunas
+      dgvGdic.Columns[9].Width = 50;
+
       dgvGdic.Columns[10].HeaderText = "Pesq. Tab. Dinâm. Por Código";//Acrescenta colunas
+      dgvGdic.Columns[10].Width = 50;
+
       dgvGdic.Columns[11].HeaderText = "Cod. Coligada Fórmula";//Acrescenta colunas
+      dgvGdic.Columns[11].Width = 50;
+
       dgvGdic.Columns[12].HeaderText = "Cod. Aplicação Fórmula";//Acrescenta colunas
+      dgvGdic.Columns[12].Width = 50;
+
       dgvGdic.Columns[13].HeaderText = "Tipo Texto";//Acrescenta colunas
+      dgvGdic.Columns[13].Width = 50;
     }
 
     #endregion Métodos GDEFCOMPEL
@@ -518,7 +609,7 @@ namespace UI
         }
         else
         {
-          throw new Exception("Cadastre um registro para poder gerar o script");
+          throw new Exception(DTO.Properties.Resources.GSCadastreRegistroGerarScript);
         }
       }
       catch (Exception ex)
@@ -556,17 +647,6 @@ namespace UI
       dadosPorjeto.CodProjeto = txtCodProj.Text;
       dadosPorjeto.tipoCliente = Convert.ToString(cbTipoCliente.SelectedItem);
       return dadosPorjeto;
-    }
-
-    //todo: Possibilitar atualizção de dados sem inserir o campo novamente
-    private void dgvGdic_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-      DataGridViewRow row = dgvGdic.CurrentRow;
-       id = Convert.ToInt32(dgvGdic.Rows[row.Index].Cells[0].Value);
-      txtGdicColuna.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[2].Value);
-      txtGdicDescricao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[3].Value);
-      chbGdicRelatorio.Checked = Convert.ToBoolean(dgvGdic.Rows[row.Index].Cells[4].Value);
-      txtGdicAplicacao.Text = Convert.ToString(dgvGdic.Rows[row.Index].Cells[5].Value);
     }
 
     #region Metodos Tela Principal
@@ -618,9 +698,5 @@ namespace UI
 
     }
 
-    private void btnGdicCancelar_Click(object sender, EventArgs e)
-    {
-      LimparGDic();
-    }
   }
 }

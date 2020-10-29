@@ -53,19 +53,21 @@
     <Compile Include="CollectionsGDefCompl.cs" />
     <Compile Include="BancoDados.cs" />
     <Compile Include="CollectionsGLinksRel.cs" />
+    <Compile Include="CrudEnum.cs" />
     <Compile Include="DadosPorjeto.cs" />
     <Compile Include="GDefCompl.cs" />
     <Compile Include="GDic.cs" />
     <Compile Include="GLinksRel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

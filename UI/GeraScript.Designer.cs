@@ -36,6 +36,7 @@
       this.dgvGdic = new System.Windows.Forms.DataGridView();
       this.btnExcluirDadosGridGDic = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.btnGicEditar = new System.Windows.Forms.Button();
       this.btnGdicCancelar = new System.Windows.Forms.Button();
       this.btnInserirDadosGdic = new System.Windows.Forms.Button();
       this.txtGdicAplicacao = new System.Windows.Forms.TextBox();
@@ -122,6 +123,7 @@
       this.tabControlTabelas.Controls.Add(this.tabGDefCompl);
       this.tabControlTabelas.Controls.Add(this.tabGLinksRel);
       this.tabControlTabelas.Location = new System.Drawing.Point(0, 106);
+      this.tabControlTabelas.Margin = new System.Windows.Forms.Padding(4);
       this.tabControlTabelas.Name = "tabControlTabelas";
       this.tabControlTabelas.SelectedIndex = 0;
       this.tabControlTabelas.Size = new System.Drawing.Size(1175, 472);
@@ -145,12 +147,14 @@
       // 
       // btnVisualizarScriptGDic
       // 
+      this.btnVisualizarScriptGDic.Enabled = false;
       this.btnVisualizarScriptGDic.Location = new System.Drawing.Point(304, 415);
       this.btnVisualizarScriptGDic.Name = "btnVisualizarScriptGDic";
       this.btnVisualizarScriptGDic.Size = new System.Drawing.Size(128, 23);
       this.btnVisualizarScriptGDic.TabIndex = 32;
       this.btnVisualizarScriptGDic.Text = "Visualizar Script";
       this.btnVisualizarScriptGDic.UseVisualStyleBackColor = true;
+      this.btnVisualizarScriptGDic.Visible = false;
       this.btnVisualizarScriptGDic.Click += new System.EventHandler(this.btnVisualizarScriptGDic_Click);
       // 
       // btnExcluirLinhaSelecionadaGDic
@@ -187,6 +191,7 @@
       // 
       this.panel1.AutoSize = true;
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.panel1.Controls.Add(this.btnGicEditar);
       this.panel1.Controls.Add(this.btnGdicCancelar);
       this.panel1.Controls.Add(this.btnInserirDadosGdic);
       this.panel1.Controls.Add(this.txtGdicAplicacao);
@@ -201,12 +206,22 @@
       this.panel1.Controls.Add(this.txtGdicDescricao);
       this.panel1.Location = new System.Drawing.Point(689, 2);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(472, 395);
+      this.panel1.Size = new System.Drawing.Size(474, 395);
       this.panel1.TabIndex = 7;
+      // 
+      // btnGicEditar
+      // 
+      this.btnGicEditar.Location = new System.Drawing.Point(91, 210);
+      this.btnGicEditar.Name = "btnGicEditar";
+      this.btnGicEditar.Size = new System.Drawing.Size(75, 23);
+      this.btnGicEditar.TabIndex = 15;
+      this.btnGicEditar.Text = "Editar";
+      this.btnGicEditar.UseVisualStyleBackColor = true;
+      this.btnGicEditar.Click += new System.EventHandler(this.button2_Click);
       // 
       // btnGdicCancelar
       // 
-      this.btnGdicCancelar.Location = new System.Drawing.Point(171, 239);
+      this.btnGdicCancelar.Location = new System.Drawing.Point(253, 210);
       this.btnGdicCancelar.Name = "btnGdicCancelar";
       this.btnGdicCancelar.Size = new System.Drawing.Size(75, 23);
       this.btnGdicCancelar.TabIndex = 14;
@@ -216,7 +231,7 @@
       // 
       // btnInserirDadosGdic
       // 
-      this.btnInserirDadosGdic.Location = new System.Drawing.Point(126, 210);
+      this.btnInserirDadosGdic.Location = new System.Drawing.Point(10, 210);
       this.btnInserirDadosGdic.Name = "btnInserirDadosGdic";
       this.btnInserirDadosGdic.Size = new System.Drawing.Size(75, 23);
       this.btnInserirDadosGdic.TabIndex = 12;
@@ -250,7 +265,7 @@
       // 
       // btlGCamposGdicLimparCampos
       // 
-      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(223, 210);
+      this.btlGCamposGdicLimparCampos.Location = new System.Drawing.Point(172, 210);
       this.btlGCamposGdicLimparCampos.Name = "btlGCamposGdicLimparCampos";
       this.btlGCamposGdicLimparCampos.Size = new System.Drawing.Size(75, 23);
       this.btlGCamposGdicLimparCampos.TabIndex = 13;
@@ -327,7 +342,7 @@
       // 
       // btnVisualizarScriptGDefCompl
       // 
-      this.btnVisualizarScriptGDefCompl.Location = new System.Drawing.Point(354, 415);
+      this.btnVisualizarScriptGDefCompl.Location = new System.Drawing.Point(304, 415);
       this.btnVisualizarScriptGDefCompl.Name = "btnVisualizarScriptGDefCompl";
       this.btnVisualizarScriptGDefCompl.Size = new System.Drawing.Size(128, 23);
       this.btnVisualizarScriptGDefCompl.TabIndex = 72;
@@ -686,7 +701,7 @@
       // 
       // btnGDefExcluirDadosGridGDefCompl
       // 
-      this.btnGDefExcluirDadosGridGDefCompl.Location = new System.Drawing.Point(183, 415);
+      this.btnGDefExcluirDadosGridGDefCompl.Location = new System.Drawing.Point(162, 415);
       this.btnGDefExcluirDadosGridGDefCompl.Name = "btnGDefExcluirDadosGridGDefCompl";
       this.btnGDefExcluirDadosGridGDefCompl.Size = new System.Drawing.Size(150, 23);
       this.btnGDefExcluirDadosGridGDefCompl.TabIndex = 71;
@@ -695,7 +710,7 @@
       // 
       // btGDefExcluirLinhaSelecionadaGDefCompl
       // 
-      this.btGDefExcluirLinhaSelecionadaGDefCompl.Location = new System.Drawing.Point(15, 415);
+      this.btGDefExcluirLinhaSelecionadaGDefCompl.Location = new System.Drawing.Point(6, 415);
       this.btGDefExcluirLinhaSelecionadaGDefCompl.Name = "btGDefExcluirLinhaSelecionadaGDefCompl";
       this.btGDefExcluirLinhaSelecionadaGDefCompl.Size = new System.Drawing.Size(152, 23);
       this.btGDefExcluirLinhaSelecionadaGDefCompl.TabIndex = 69;
@@ -968,5 +983,6 @@
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.TextBox textBox2;
     private System.Windows.Forms.Button btnGdicCancelar;
+    private System.Windows.Forms.Button btnGicEditar;
   }
 }
